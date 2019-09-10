@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Cliente_Pedido {
@@ -13,6 +14,7 @@ public class Cliente_Pedido {
 	private int IDPEDIDO;
 	
 	//LEFT TYPE OF RELATIONSHIP
+	@ManyToOne
 	@JoinColumn(name = "CEDULA", referencedColumnName = "CEDULA")
 	private Cliente cliente;
 	

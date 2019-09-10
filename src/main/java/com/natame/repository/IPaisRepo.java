@@ -1,6 +1,8 @@
 package com.natame.repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IPaisRepo {
-	void registrarPais(String nombre);
+import com.natame.model.Pais;
+
+public interface IPaisRepo extends JpaRepository<Pais, Integer>{
 	
 }

@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Producto_Pedido {
@@ -15,11 +16,11 @@ public class Producto_Pedido {
 	@Column(name="CANTIDAD", nullable=true)
 	private int CANTIDAD;
 	
-	//LEFT
+	@ManyToOne
 	@JoinColumn(name = "IDPEDIDO", referencedColumnName = "IDPEDIDO")
 	private Pedido pedido;
 	
-	//LEFT
+	@ManyToOne
 	@JoinColumn(name = "IDPRODUCTO", referencedColumnName = "IDPRODUCTO")
 	private Producto producto;
 }

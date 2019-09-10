@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Pedido {
@@ -18,7 +19,7 @@ public class Pedido {
 	@Column(name="CALIFICACION", nullable=true,length = 50)
 	private String CALIFICACION;
 	
-	//LEFT
+	@ManyToOne
 	@JoinColumn(name = "IDMODODEPAGO", referencedColumnName = "IDMODODEPAGO")
 	private ModoDePago mododepago;
 	

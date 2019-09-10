@@ -40,6 +40,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        
+        <!-- MySql connector ( JUST FOR TEST PURPOSES) -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
 		
 		<!-- Oracle 18c jdbc driver -->
 		<dependency>

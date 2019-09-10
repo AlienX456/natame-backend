@@ -3,6 +3,7 @@ package com.natame.model;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 public class RepresentanteVentas_Cliente {
 	
@@ -16,11 +17,11 @@ public class RepresentanteVentas_Cliente {
 	@Column(name="FECHAFIN", length=50, nullable = true)
 	private String FECHAFIN;
 	
-	//LEFT
+	@ManyToOne
 	@JoinColumn(name = "ID_REPRESENTANTE", referencedColumnName = "IDENTIFICACION")
 	private RepresentanteVentas representante;
 	
-	//LEFT
+	@ManyToOne
 	@JoinColumn(name = "ID_CLIENTE", referencedColumnName = "CEDULA")
 	private Cliente cliente;
 	

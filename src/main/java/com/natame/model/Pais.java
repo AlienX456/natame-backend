@@ -7,7 +7,6 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "Pais")
 public class Pais {
 	
 	@Column(name="IDPAIS")

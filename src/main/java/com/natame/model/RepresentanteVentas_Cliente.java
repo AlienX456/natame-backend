@@ -7,22 +7,22 @@ import javax.persistence.ManyToOne;
 
 public class RepresentanteVentas_Cliente {
 	
-	@Column(name = "ID")
+	@Column(name = "PK_N_ID")
 	@Id
 	private int ID;
 	
-	@Column(name="FECHAINICIO", length=50, nullable = false)
+	@Column(name="D_FECHAINICIO", nullable = false)
 	private String FECHAINICIO;
 	
-	@Column(name="FECHAFIN", length=50, nullable = true)
+	@Column(name="D_FECHAFIN", nullable = true)
 	private String FECHAFIN;
 	
 	@ManyToOne
-	@JoinColumn(name = "ID_REPRESENTANTE", referencedColumnName = "IDENTIFICACION")
+	@JoinColumn(name = "FK_N_IDENTIFICACION", referencedColumnName = "PK_N_IDENTIFICACION")
 	private RepresentanteVentas representante;
 	
 	@ManyToOne
-	@JoinColumn(name = "ID_CLIENTE", referencedColumnName = "CEDULA")
+	@JoinColumn(name = "FK_N_CEDULA", referencedColumnName = "PK_N_CEDULA")
 	private Cliente cliente;
 	
 

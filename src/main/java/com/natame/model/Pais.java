@@ -9,11 +9,11 @@ import javax.persistence.Table;
 @Entity
 public class Pais {
 	
-	@Column(name="IDPAIS")
+	@Column(name="PK_N_IDPAIS")
 	@Id
 	private int IDPAIS;
 	
-	@Column(name="NOMBREPAIS", nullable = false, length=50)
+	@Column(name="V_NOMBREPAIS", nullable = false, length=50)
 	private String NOMBREPAIS;
 
 	public int getIDPAIS() {

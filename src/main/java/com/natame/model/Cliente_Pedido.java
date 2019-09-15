@@ -9,15 +9,19 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Cliente_Pedido {
 	
-	@Column(name = "IDPEDIDO")
+	@Column(name = "PK_N_ID")
 	@Id
-	private int IDPEDIDO;
+	private int ID;
 	
 	//LEFT TYPE OF RELATIONSHIP
 	@ManyToOne
-	@JoinColumn(name = "CEDULA", referencedColumnName = "CEDULA")
+	@JoinColumn(name = "FK_N_CEDULA", referencedColumnName = "PK_N_CEDULA")
 	private Cliente cliente;
 	
-	@Column(name = "FECHAPEDIDO")
+	@ManyToOne
+	@JoinColumn(name = "FK_N_IDPEDIDO", referencedColumnName = "PK_N_IDPEDIDO")
+	private Pedido pedido;
+	
+	@Column(name = "D_FECHAPEDIDO", nullable = false)
 	private String FECHAPEDIDO;
 }

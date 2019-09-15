@@ -9,10 +9,13 @@ import javax.persistence.Table;
 @Table(name = "Categoria")
 public class Categoria {
 	
-	@Column(name = "IDCATEGORIA")
+	@Column(name = "PK_N_IDCATEGORIA")
 	@Id
 	private int IDCATEGORIA;
 
-	@Column(name = "NOMBRECATEGORIA", nullable=true, length=50)
+	@Column(name = "V_NOMBRECATEGORIA", nullable=false, length=50)
 	private String NOMBRECATEGORIA;
+	
+	@Column(name = "N_IVA", nullable=false)
+	private float IVA;
 }

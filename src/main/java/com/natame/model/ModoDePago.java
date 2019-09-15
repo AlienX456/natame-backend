@@ -7,10 +7,10 @@ import javax.persistence.Id;
 @Entity
 public class ModoDePago {
 	
-	@Column(name="IDMODODEPAGO")
+	@Column(name="PK_N_IDMODODEPAGO")
 	@Id
 	private int IDMODODEPAGO;
 	
-	@Column(name="NOMBREMODODEPAGO", nullable=true)
+	@Column(name="V_NOMBREMODODEPAGO", nullable=false)
 	private String NOMBREMODODEPAGO;
 }

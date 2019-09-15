@@ -9,18 +9,18 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Pedido {
 	
-	@Column(name="IDPEDIDO")
+	@Column(name="PK_N_IDPEDIDO")
 	@Id
 	private int IDPEDIDO;
 	
-	@Column(name="ESTADOPEDIDO", nullable=true, length = 50)
+	@Column(name="ESTADOPEDIDO", nullable=false, length = 10)
 	private String ESTADOPEDIDO;
 	
-	@Column(name="CALIFICACION", nullable=true,length = 50)
+	@Column(name="CALIFICACION", nullable=false,length = 50)
 	private String CALIFICACION;
 	
 	@ManyToOne
-	@JoinColumn(name = "IDMODODEPAGO", referencedColumnName = "IDMODODEPAGO")
+	@JoinColumn(name = "FK_N_IDMODODEPAGO", referencedColumnName = "PK_N_IDMODODEPAGO")
 	private ModoDePago mododepago;
 	
 }

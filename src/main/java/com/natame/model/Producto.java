@@ -8,14 +8,11 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Producto {
-	@Column(name="IDPRODUCTO")
+	@Column(name="PK_N_IDPRODUCTO")
 	@Id
 	private int IDPRODUCTO;
 	
-	@Column(name="NOMBREPRODUCTO", nullable = false, length= 50)
+	@Column(name="V_NOMBREPRODUCTO", nullable = false, length= 50)
 	private String NOMBREPRODUCTO;
 
-	@ManyToOne
-	@JoinColumn(name = "IDIMPUESTO", referencedColumnName = "IDIMPUESTO")
-	private Impuesto IDIMPUESTO;
 }

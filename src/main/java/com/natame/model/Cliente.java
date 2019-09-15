@@ -9,26 +9,26 @@ import javax.persistence.Table;
 @Table(name = "Cliente")
 public class Cliente {
 	
-	@Column(name = "CEDULA")
+	@Column(name = "PK_N_CEDULA")
 	@Id
 	private int CEDULA;
 	
 	
-	@Column(name = "NOMBRECLIENTE", nullable = true, length=50)
+	@Column(name = "V_NOMBRECLIENTE", nullable = false, length=50)
 	private String NOMBRECLIENTE;
 	
-	@Column(name = "APELLIDOCLIENTE", nullable = true, length=50)
+	@Column(name = "V_APELLIDOCLIENTE", nullable = false, length=50)
 	private String APELLIDOCLIENTE;
 	
-	@Column(name = "TELEFONO", nullable = true, length=50)
+	@Column(name = "V_TELEFONO", nullable = false, length=50)
 	private String TELEFONO;
 	
-	@Column(name = "DIRECCION", nullable = true, length=50)
+	@Column(name = "V_DIRECCION", nullable = false, length=50)
 	private String DIRECCION;
 	
-	@Column(name = "CIUDAD", nullable = true, length=50)
+	@Column(name = "V_CIUDAD", nullable = false, length=50)
 	private String CIUDAD;
 	
-	@Column(name = "CORREOELECTRONICO", nullable = true, length=50)
+	@Column(name = "V_CORREOELECTRONICO", nullable = true, length=50)
 	private String CORREOELECTRONICO;
 }

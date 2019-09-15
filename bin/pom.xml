@@ -21,7 +21,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
 		<dependency>
@@ -41,13 +41,18 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         
-
-	
+        <!-- MySql connector ( JUST FOR TEST PURPOSES) -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+		
+		<!-- Oracle 18c jdbc driver -->
 		<dependency>
-		    <groupId>oracle</groupId>
-		    <artifactId>ojdbc6</artifactId>
-		    <version>11.2.0.4</version>
-		</dependency> 
+		    <groupId>com.oracle</groupId>
+		    <artifactId>ojdbc8</artifactId>
+		    <version>18.3.0</version>
+		</dependency>
         
 	</dependencies>
 

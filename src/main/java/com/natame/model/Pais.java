@@ -9,6 +9,15 @@ import javax.persistence.Table;
 @Entity
 public class Pais {
 	
+	public Pais() {
+		
+	}
+	
+	public Pais(int IDPAIS, String NOMBREPAIS) {
+		this.IDPAIS = IDPAIS;
+		this.NOMBREPAIS = NOMBREPAIS;
+	}
+	
 	@Column(name="PK_N_IDPAIS")
 	@Id
 	private int IDPAIS;

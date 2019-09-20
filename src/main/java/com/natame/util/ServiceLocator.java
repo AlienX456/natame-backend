@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.natame.auth.Usuario;
+
 
 /**
  * Recursos Humanos
@@ -79,7 +81,7 @@ public class ServiceLocator {
 	public void resetarCredencialesConexion() throws Exception {
 		try {
 	         Class.forName("oracle.jdbc.driver.OracleDriver");
-	         conexion = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","invitado","invitado");
+	         conexion = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","invitado_natame","invitado_natame");
 		     conexion.setAutoCommit(false);
 		} catch (Exception e) {
 			  throw new RHException("ServiceLocator","ERROR_CONEXION_BD "+ e);
@@ -89,8 +91,9 @@ public class ServiceLocator {
 	/**
 	 * Toma la conexion para que ningun otro proceso la puedan utilizar
 	 * @return da la conexion a la base de datos
+	 * @throws Exception 
 	 */
-	public synchronized Connection tomarConexion() {
+	public synchronized Connection tomarConexion(Usuario user) throws Exception {
 		while (!conexionLibre) {
 			try {
 			  wait();
@@ -98,9 +101,9 @@ public class ServiceLocator {
 				e.printStackTrace();
 			}
 		}
-
 		conexionLibre = false;
 		notify();
+		this.usarCredencialesConexion(user.getNombre(), user.getContrasena());
 		return conexion;
 	}
 

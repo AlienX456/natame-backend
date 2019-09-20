@@ -18,17 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.natame.model.Pais;
-import com.natame.repository.IPaisRepo;
 import com.natame.service.ServicesDaoImpl;
+import com.natame.util.RHException;
 
 
 @RestController
 public class ControllerAPI {
 	
-	//ACCIONES SOBRE LOS PAISES
-	
-	@Autowired
-	private IPaisRepo pais;
 	
 	@Autowired
 	private ServicesDaoImpl serviciosDao;
@@ -37,27 +33,56 @@ public class ControllerAPI {
 	
 	@RequestMapping(value = "/pais", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public String obtenerPaises(@RequestHeader("Authorization") String auth) throws Exception {
+	public String obtenerPaises(@RequestHeader("Authorization") String auth){
 		ObjectMapper objectMapper = new ObjectMapper();
-		String json = objectMapper.writeValueAsString(this.serviciosDao.verPaises(auth));
-		return json;
+		try {
+			return objectMapper.writeValueAsString(this.serviciosDao.verPaises(auth));
+		} catch (RHException e) {
+			return "{\"error\":\""+e+"\"}";
+		} catch (JsonProcessingException e) {
+			return "{\"error\":\""+e+"\"}";
+		}
 	}
 	
 	@RequestMapping(value = "/pais/{id}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public String obtenerPais(@PathVariable String id, @RequestHeader("Authorization") String auth) throws JsonProcessingException {
-		int intid = Integer.parseInt(id);
-		ObjectMapper objectMapper = new ObjectMapper();
-		String json = objectMapper.writeValueAsString(serviciosDao.buscarPais(intid,auth));
-		return json;
+	public String obtenerPais(@PathVariable String id, @RequestHeader("Authorization") String auth) {
+		try {
+			int intid = Integer.parseInt(id);
+			ObjectMapper objectMapper = new ObjectMapper();
+			return objectMapper.writeValueAsString(serviciosDao.buscarPais(intid,auth));
+		} catch (RHException e) {
+			return "{\"error\":\""+e+"\"}";
+		}catch (JsonProcessingException e) {
+			return "{\"error\":\""+e+"\"}";
+		} 
 	}
 	
-	@RequestMapping(value = "/pais", method = RequestMethod.POST)
+	@RequestMapping(value = "/pais", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String insertarPais(@RequestBody Pais pais, Principal principal, @RequestHeader("Authorization") String auth) {
-		serviciosDao.incluirPais(pais, auth);
-		return "Mostrar errores en front";
+		try {
+			serviciosDao.incluirPais(pais, auth);
+			ObjectMapper objectMapper = new ObjectMapper();
+			return objectMapper.writeValueAsString(serviciosDao.buscarPais(pais.getIDPAIS(),auth));
+		} catch (RHException e) {
+			return "{\"error\":\""+e+"\"}";
+		} catch (JsonProcessingException e) {
+			return "{\"error\":\""+e+"\"}";
+		}
 	}
+	
+	/*
+	POST BODY LIKE :
+	{
+	    "idpais": 4,
+	    "nombrepais": "Canada"
+	}
+	*/
+	
+	//error
+
+
 	
 
 }

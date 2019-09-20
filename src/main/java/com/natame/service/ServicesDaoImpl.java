@@ -20,61 +20,43 @@ public class ServicesDaoImpl {
 	
 	private BasicAuthConfig bauth;
 	
-	private ServiceLocator servloc;
-	
 	public ServicesDaoImpl(){
 		this.ipais = new PaisDaoOracle();
 		this.bauth = new BasicAuthConfig();
-		this.servloc = ServiceLocator.getInstance();
 	}
 	
-    public void incluirPais(Pais pais, String auth) {
-    	try {
-			ipais.incluirPais(pais);
-		} catch (RHException e) {
-			e.printStackTrace();
-		}
-    	
+	
+    public void incluirPais(Pais pais, String auth) throws RHException{
+    	Usuario usuario = bauth.getUserPassword(auth);
+		ipais.incluirPais(pais, usuario);
     }
-    public void modificarPais(int id, String nombre, String auth) {
+    
+    
+    public void modificarPais(int id, String nombre, String auth) throws RHException {
     	Pais actual = new Pais(id,nombre);
-    	try {
-			ipais.modificarPais(actual);
-		} catch (RHException e) {
-			e.printStackTrace();
-		}
+		Usuario usuario = bauth.getUserPassword(auth);
+		ipais.modificarPais(actual,usuario);
     	
     }
-    public Pais buscarPais(Integer pais_id, String auth) {
+    
+    
+    public Pais buscarPais(Integer pais_id, String auth) throws RHException {
     	Pais resultado;
-		try {
-			resultado = ipais.buscarPais(pais_id);
-			return resultado;
-		} catch (RHException e) {
-			e.printStackTrace();
-			return null;
-		}
-		
-		
-    	
+    	Usuario usuario = bauth.getUserPassword(auth);
+		resultado = ipais.buscarPais(pais_id, usuario);
+		return resultado;
     }
-    public void borrarPais(Integer pais_id, String auth) {
-    	try {
-			ipais.borrarPais(pais_id);
-		} catch (RHException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    
+    
+    public void borrarPais(Integer pais_id, String auth) throws RHException {
+		Usuario usuario = bauth.getUserPassword(auth);
+		ipais.borrarPais(pais_id, usuario);
+
     }
-    public Pais[] verPaises(String auth) throws Exception {
-    	try {
+    
+    
+    public Pais[] verPaises(String auth) throws RHException {
     		Usuario usuario = bauth.getUserPassword(auth);
-    		servloc.usarCredencialesConexion(usuario.getNombre(), usuario.getContrasena());
-			return ipais.verPaises();
-		} catch (RHException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+			return ipais.verPaises(usuario);
     }
 }

@@ -50,10 +50,9 @@ public class ControllerAPI {
 	
 	@RequestMapping(value = "/pais/{id}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public String obtenerPais(@PathVariable String id, @RequestHeader("Authorization") String auth) {
+	public String obtenerPais(@PathVariable int id, @RequestHeader("Authorization") String auth) {
 		try {
-			int intid = Integer.parseInt(id);
-			return objectMapper.writeValueAsString(serviciosDao.buscarPais(intid,auth));
+			return objectMapper.writeValueAsString(serviciosDao.buscarPais(id,auth));
 		} catch (Exception e) {
 			return "{\"error\":\""+e+"\"}";
 		}
@@ -72,10 +71,9 @@ public class ControllerAPI {
 	
 	@RequestMapping(value = "/pais/{id}", method = RequestMethod.DELETE, produces = "application/json")
 	@ResponseBody
-	public String borrarPais(@PathVariable String id, @RequestHeader("Authorization") String auth) {
+	public String borrarPais(@PathVariable int id, @RequestHeader("Authorization") String auth) {
 		try {
-			int intid = Integer.parseInt(id);
-			serviciosDao.borrarPais(intid, auth);
+			serviciosDao.borrarPais(id, auth);
 			return "{\"resultado\":\"transacción finalizada con exito\"}";
 		}catch (Exception e) {
 			return "{\"error\":\""+e+"\"}";
@@ -101,10 +99,9 @@ public class ControllerAPI {
 	
 	@RequestMapping(value = "/cliente/{cedula}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public String buscarCliente(@PathVariable String cedula, @RequestHeader("Authorization") String auth) {
+	public String buscarCliente(@PathVariable int cedula, @RequestHeader("Authorization") String auth) {
 		try {
-			int intid = Integer.parseInt(cedula);
-			return objectMapper.writeValueAsString(serviciosDao.buscarCliente(intid, auth));
+			return objectMapper.writeValueAsString(serviciosDao.buscarCliente(cedula, auth));
 		}catch (Exception e) {
 			return "{\"error\":\""+e+"\"}";
 		}
@@ -138,11 +135,10 @@ public class ControllerAPI {
 	}
 	 */
 	
-	@RequestMapping(value = "/representante/{id}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/representante/{identificacion}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public String buscarRepresentanteVentas(@PathVariable String id, @RequestHeader("Authorization") String auth) {
+	public String buscarRepresentanteVentas(@PathVariable int identificacion, @RequestHeader("Authorization") String auth) {
 		try {
-			int identificacion = Integer.parseInt(id); 
 			return objectMapper.writeValueAsString(serviciosDao.buscarRepresentanteVentas(identificacion, auth));
 		}catch (Exception e) {
 			return "{\"error\":\""+e+"\"}";
@@ -170,7 +166,15 @@ public class ControllerAPI {
 	
 	//Muestra todos los productos disponibles con su imagen, 
 	//descripción, precio y cantidad disponible de la regional seleccionada
-	
+	@RequestMapping(value = "/productoregion/{region}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public String buscarProductoxRegion(@PathVariable int region, @RequestHeader("Authorization") String auth) {
+		try {
+			return objectMapper.writeValueAsString(this.serviciosDao.buscarProductosxRegion(region, auth));
+		} catch (Exception e) {
+			return "{\"error\":\""+e+"\"}";
+		}
+	}
 	
 	
 	

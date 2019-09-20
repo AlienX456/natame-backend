@@ -13,5 +13,7 @@ public class Producto {
 	
 	@Column(name="V_NOMBREPRODUCTO", nullable = false, length= 50)
 	private String NOMBREPRODUCTO;
+	
+	
 
 }

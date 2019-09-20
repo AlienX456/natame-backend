@@ -8,13 +8,16 @@ import com.natame.auth.Usuario;
 import com.natame.dao.ClienteDaoOracle;
 import com.natame.dao.IClienteDao;
 import com.natame.dao.IPaisDao;
+import com.natame.dao.IProductoRegionDao;
 import com.natame.dao.IRegionDao;
 import com.natame.dao.IRepresentanteVentasDao;
 import com.natame.dao.PaisDaoOracle;
+import com.natame.dao.ProductoRegionDaoOracle;
 import com.natame.dao.RegionDaoOracle;
 import com.natame.dao.RepresentanteVentasDaoOracle;
 import com.natame.model.Cliente;
 import com.natame.model.Pais;
+import com.natame.model.ProductoRegion;
 import com.natame.model.Region;
 import com.natame.model.RepresentanteVentas;
 import com.natame.util.RHException;
@@ -28,6 +31,7 @@ public class ServicesDaoImpl {
 	private IClienteDao icliente;
 	private IRepresentanteVentasDao irp;
 	private IRegionDao iregion;
+	private IProductoRegionDao ipr;
 	
 	private BasicAuthConfig bauth;
 	
@@ -37,6 +41,7 @@ public class ServicesDaoImpl {
 		this.icliente = new ClienteDaoOracle();
 		this.irp = new RepresentanteVentasDaoOracle();
 		this.iregion = new RegionDaoOracle();
+		this.ipr = new ProductoRegionDaoOracle();
 	}
 	
 	
@@ -125,6 +130,19 @@ public class ServicesDaoImpl {
     public Region[] verRegiones(String auth) throws RHException{
     	Usuario usuario = bauth.getUserPassword(auth);
     	return this.iregion.verRegiones(usuario);
+    }
+    
+    /*
+     * 
+     * PRODUCTOREGION
+     * 
+     * 
+     * 
+     */
+    
+    public ProductoRegion[] buscarProductosxRegion(int region, String auth) throws RHException{
+    	Usuario usuario = bauth.getUserPassword(auth);
+    	return this.ipr.buscarProductoxRegion(region, usuario);
     }
     
 }

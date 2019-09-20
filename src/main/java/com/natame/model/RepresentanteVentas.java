@@ -2,8 +2,6 @@ package com.natame.model;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 public class RepresentanteVentas {
 	@Column(name = "PK_N_IDENTIFICACION")
@@ -32,9 +30,16 @@ public class RepresentanteVentas {
 	private String DIRECCION;
 	
 	@Column(name = "V_ESDIRETOR", nullable = false, length = 1)
-	private int ESDIRETOR;
+	private String ESDIRECTOR;
+	
+	@Column(name = "FK_N_IDGRADO", nullable = false, length = 1)
+	private int GRADO;
+	
+	@Column(name = "FK_N_IDREGION", nullable = false, length = 1)
+	private int REGION;
 	
 	//LEFT
+	/*
 	@ManyToOne
 	@JoinColumn(name = "FK_N_IDGRADO", nullable = false, referencedColumnName = "PK_N_IDGRADO")
 	private Grado grado;
@@ -43,4 +48,97 @@ public class RepresentanteVentas {
 	@ManyToOne
 	@JoinColumn(name = "FK_N_IDREGION", nullable = false, referencedColumnName = "PK_N_IDREGION")
 	private Region region;
+	*/
+
+	public int getIDENTIFICACION() {
+		return IDENTIFICACION;
+	}
+
+	public void setIDENTIFICACION(int iDENTIFICACION) {
+		IDENTIFICACION = iDENTIFICACION;
+	}
+
+	public String getNOMBRE() {
+		return NOMBRE;
+	}
+
+	public void setNOMBRE(String nOMBRE) {
+		NOMBRE = nOMBRE;
+	}
+
+	public String getCORREOELECTRONICO() {
+		return CORREOELECTRONICO;
+	}
+
+	public void setCORREOELECTRONICO(String cORREOELECTRONICO) {
+		CORREOELECTRONICO = cORREOELECTRONICO;
+	}
+
+	public String getGENERO() {
+		return GENERO;
+	}
+
+	public void setGENERO(String gENERO) {
+		GENERO = gENERO;
+	}
+
+	public String getFECHANACIMIENTO() {
+		return FECHANACIMIENTO;
+	}
+
+	public void setFECHANACIMIENTO(String fECHANACIMIENTO) {
+		FECHANACIMIENTO = fECHANACIMIENTO;
+	}
+
+	public String getFECHACONTRATO() {
+		return FECHACONTRATO;
+	}
+
+	public void setFECHACONTRATO(String fECHACONTRATO) {
+		FECHACONTRATO = fECHACONTRATO;
+	}
+
+	public String getTELEFONOCONTACTO() {
+		return TELEFONOCONTACTO;
+	}
+
+	public void setTELEFONOCONTACTO(String tELEFONOCONTACTO) {
+		TELEFONOCONTACTO = tELEFONOCONTACTO;
+	}
+
+	public String getDIRECCION() {
+		return DIRECCION;
+	}
+
+	public void setDIRECCION(String dIRECCION) {
+		DIRECCION = dIRECCION;
+	}
+
+	public String getESDIRECTOR() {
+		return ESDIRECTOR;
+	}
+
+	public void setESDIRECTOR(String eSDIRETOR) {
+		ESDIRECTOR = eSDIRETOR;
+	}
+
+	public int getGRADO() {
+		return GRADO;
+	}
+
+	public void setGRADO(int gRADO) {
+		GRADO = gRADO;
+	}
+
+	public int getREGION() {
+		return REGION;
+	}
+
+	public void setREGION(int rEGION) {
+		REGION = rEGION;
+	}
+
+	
+	
+	
 }

@@ -31,4 +31,62 @@ public class Cliente {
 	
 	@Column(name = "V_CORREOELECTRONICO", nullable = true, length=50)
 	private String CORREOELECTRONICO;
+
+	public int getCEDULA() {
+		return CEDULA;
+	}
+
+	public void setCEDULA(int cEDULA) {
+		CEDULA = cEDULA;
+	}
+
+	public String getNOMBRECLIENTE() {
+		return NOMBRECLIENTE;
+	}
+
+	public void setNOMBRECLIENTE(String nOMBRECLIENTE) {
+		NOMBRECLIENTE = nOMBRECLIENTE;
+	}
+
+	public String getAPELLIDOCLIENTE() {
+		return APELLIDOCLIENTE;
+	}
+
+	public void setAPELLIDOCLIENTE(String aPELLIDOCLIENTE) {
+		APELLIDOCLIENTE = aPELLIDOCLIENTE;
+	}
+
+	public String getTELEFONO() {
+		return TELEFONO;
+	}
+
+	public void setTELEFONO(String tELEFONO) {
+		TELEFONO = tELEFONO;
+	}
+
+	public String getDIRECCION() {
+		return DIRECCION;
+	}
+
+	public void setDIRECCION(String dIRECCION) {
+		DIRECCION = dIRECCION;
+	}
+
+	public String getCIUDAD() {
+		return CIUDAD;
+	}
+
+	public void setCIUDAD(String cIUDAD) {
+		CIUDAD = cIUDAD;
+	}
+
+	public String getCORREOELECTRONICO() {
+		return CORREOELECTRONICO;
+	}
+
+	public void setCORREOELECTRONICO(String cORREOELECTRONICO) {
+		CORREOELECTRONICO = cORREOELECTRONICO;
+	}
+	
+	
 }

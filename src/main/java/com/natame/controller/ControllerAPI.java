@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.natame.model.Pais;
 import com.natame.model.RepresentanteVentas;
 import com.natame.service.ServicesDaoImpl;
 import com.natame.util.RHException;
+
 
 
 @RestController
@@ -93,6 +93,9 @@ public class ControllerAPI {
 	/*CASO DE USO
 	 * REGISTRAR RERESENTANTE DE VENTAS
 	 * 
+	 * 
+	 * 
+	 * 
 	 */
 	
 	
@@ -145,6 +148,29 @@ public class ControllerAPI {
 			return "{\"error\":\""+e+"\"}";
 		}
 	}
+	
+	
+	/*CASO DE USO
+	 * VENDER PRODUCTOS
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+	
+	@RequestMapping(value = "/region", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public String verRegiones(@RequestHeader("Authorization") String auth) {
+		try {
+			return objectMapper.writeValueAsString(this.serviciosDao.verRegiones(auth));
+		}  catch (Exception e) {
+			return "{\"error\":\""+e+"\"}";
+		}
+	}
+	
+	//Muestra todos los productos disponibles con su imagen, 
+	//descripción, precio y cantidad disponible de la regional seleccionada
+	
 	
 	
 	

@@ -57,15 +57,8 @@ public class ServiceLocator {
 	 * @throws Exception
 	 *             dice si no se pudo crear la conexion
 	 */
-	private ServiceLocator() throws Exception {
-		try {
-			 /** TODO Establecer la conexion a la bd. usuario= hr, password= hr **/
-	         Class.forName("oracle.jdbc.driver.OracleDriver"); 
-	         conexion = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","invitado","invitado");
-		     conexion.setAutoCommit(false);
-		} catch (Exception e) {
-			  throw new RHException("ServiceLocator","ERROR_CONEXION_BD "+ e);
-		}
+	private ServiceLocator() {
+
 	}
 	
 	public void usarCredencialesConexion(String user, String pass) throws Exception {
@@ -78,15 +71,6 @@ public class ServiceLocator {
 		}
 	}
 	
-	public void resetarCredencialesConexion() throws Exception {
-		try {
-	         Class.forName("oracle.jdbc.driver.OracleDriver");
-	         conexion = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","invitado_natame","invitado_natame");
-		     conexion.setAutoCommit(false);
-		} catch (Exception e) {
-			  throw new RHException("ServiceLocator","ERROR_CONEXION_BD "+ e);
-		}
-	}
 
 	/**
 	 * Toma la conexion para que ningun otro proceso la puedan utilizar
@@ -119,7 +103,6 @@ public class ServiceLocator {
 				e.printStackTrace();
 			}
 		}
-
 		conexionLibre = true;
 		notify();
 	}

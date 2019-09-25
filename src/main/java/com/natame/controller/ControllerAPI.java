@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.natame.model.Pais;
 import com.natame.model.RepresentanteVentas;
 import com.natame.service.ServicesDaoImpl;
-import com.natame.util.RHException;
+
 
 
 
@@ -40,7 +40,7 @@ public class ControllerAPI {
 	
 	@RequestMapping(value = "/pais", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public String obtenerPaises(@RequestHeader("Authorization") String auth){
+	public String obtenerPaises(@RequestHeader(value="Authorization",required=false) String auth){
 		try {
 			return objectMapper.writeValueAsString(this.serviciosDao.verPaises(auth));
 		} catch (Exception e) {
@@ -50,7 +50,7 @@ public class ControllerAPI {
 	
 	@RequestMapping(value = "/pais/{id}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public String obtenerPais(@PathVariable int id, @RequestHeader("Authorization") String auth) {
+	public String obtenerPais(@PathVariable int id, @RequestHeader(value="Authorization",required=false) String auth) {
 		try {
 			return objectMapper.writeValueAsString(serviciosDao.buscarPais(id,auth));
 		} catch (Exception e) {
@@ -60,7 +60,7 @@ public class ControllerAPI {
 	
 	@RequestMapping(value = "/pais", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public String insertarPais(@RequestBody Pais pais, @RequestHeader("Authorization") String auth) {
+	public String insertarPais(@RequestBody Pais pais, @RequestHeader(value="Authorization",required=false) String auth) {
 		try {
 			serviciosDao.incluirPais(pais, auth);
 			return "{\"resultado\":\"transacción finalizada con exito\"}";
@@ -71,7 +71,7 @@ public class ControllerAPI {
 	
 	@RequestMapping(value = "/pais/{id}", method = RequestMethod.DELETE, produces = "application/json")
 	@ResponseBody
-	public String borrarPais(@PathVariable int id, @RequestHeader("Authorization") String auth) {
+	public String borrarPais(@PathVariable int id, @RequestHeader(value="Authorization",required=false) String auth) {
 		try {
 			serviciosDao.borrarPais(id, auth);
 			return "{\"resultado\":\"transacción finalizada con exito\"}";
@@ -99,7 +99,7 @@ public class ControllerAPI {
 	
 	@RequestMapping(value = "/cliente/{cedula}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public String buscarCliente(@PathVariable int cedula, @RequestHeader("Authorization") String auth) {
+	public String buscarCliente(@PathVariable int cedula, @RequestHeader(value="Authorization",required=false) String auth) {
 		try {
 			return objectMapper.writeValueAsString(serviciosDao.buscarCliente(cedula, auth));
 		}catch (Exception e) {
@@ -109,7 +109,7 @@ public class ControllerAPI {
 	
 	@RequestMapping(value = "/representante", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public String registrarRepresentanteVentas(@RequestBody RepresentanteVentas rp, @RequestHeader("Authorization") String auth) {
+	public String registrarRepresentanteVentas(@RequestBody RepresentanteVentas rp, @RequestHeader(value="Authorization",required=false) String auth) {
 		try {
 			serviciosDao.registrarRepresentanteVentas(rp, auth);
 			return "{\"resultado\":\"transacción finalizada con exito\"}";
@@ -137,7 +137,7 @@ public class ControllerAPI {
 	
 	@RequestMapping(value = "/representante/{identificacion}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public String buscarRepresentanteVentas(@PathVariable int identificacion, @RequestHeader("Authorization") String auth) {
+	public String buscarRepresentanteVentas(@PathVariable int identificacion, @RequestHeader(value="Authorization",required=false) String auth) {
 		try {
 			return objectMapper.writeValueAsString(serviciosDao.buscarRepresentanteVentas(identificacion, auth));
 		}catch (Exception e) {
@@ -156,7 +156,7 @@ public class ControllerAPI {
 	
 	@RequestMapping(value = "/region", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public String verRegiones(@RequestHeader("Authorization") String auth) {
+	public String verRegiones(@RequestHeader(value="Authorization",required=false) String auth) {
 		try {
 			return objectMapper.writeValueAsString(this.serviciosDao.verRegiones(auth));
 		}  catch (Exception e) {
@@ -168,7 +168,7 @@ public class ControllerAPI {
 	//descripción, precio y cantidad disponible de la regional seleccionada
 	@RequestMapping(value = "/productoregion/{region}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public String buscarProductoxRegion(@PathVariable int region, @RequestHeader("Authorization") String auth) {
+	public String buscarProductoxRegion(@PathVariable int region, @RequestHeader(value="Authorization",required=false) String auth) {
 		try {
 			return objectMapper.writeValueAsString(this.serviciosDao.buscarProductosxRegion(region, auth));
 		} catch (Exception e) {

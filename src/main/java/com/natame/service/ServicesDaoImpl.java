@@ -37,7 +37,7 @@ public class ServicesDaoImpl {
 	
 	public ServicesDaoImpl(){
 		this.ipais = new PaisDaoOracle();
-		this.bauth = new BasicAuthConfig();
+		this.bauth = BasicAuthConfig.getInstance();
 		this.icliente = new ClienteDaoOracle();
 		this.irp = new RepresentanteVentasDaoOracle();
 		this.iregion = new RegionDaoOracle();

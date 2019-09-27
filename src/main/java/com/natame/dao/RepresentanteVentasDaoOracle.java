@@ -32,6 +32,14 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	          prepStmt.close();
 	          ServiceLocator.getInstance().commit();
 	        } catch (Exception e) {
+	      	  try {
+		        	if (ServiceLocator.getInstance().getConexion()!=null) {
+		                System.err.print("se enviara petición de Rollback");
+		                ServiceLocator.getInstance().rollback();
+		        	}
+		        } catch(Exception excep) {
+		        	throw new RHException( this.getClass().getName(), " Error en registrarRepresentanteVentas() ROLLBACK "+ excep.getMessage());
+		        }
 	        	throw new RHException( this.getClass().getName(), " Error en registrarRepresentanteVentas() "+ e.getMessage());
 			}  finally {
 	           ServiceLocator.getInstance().liberarConexion();

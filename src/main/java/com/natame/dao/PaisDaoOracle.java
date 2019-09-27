@@ -24,7 +24,15 @@ public class PaisDaoOracle implements IPaisDao{
           prepStmt.close();
           ServiceLocator.getInstance().commit();
         } catch (Exception e) {
-        	throw new RHException( this.getClass().getName(), " Error en incluirPais() "+ e.getMessage());
+            try {
+            	if (ServiceLocator.getInstance().getConexion()!=null) {
+                    System.err.print("se enviara petición de Rollback");
+                    ServiceLocator.getInstance().rollback();
+            	}
+            } catch(Exception excep) {
+            	throw new RHException( this.getClass().getName(), " Error en incluirPais() ROLLBACK "+ excep.getMessage());
+            }
+            throw new RHException( this.getClass().getName(), " Error en incluirPais() "+ e.getMessage());
 		}  finally {
            ServiceLocator.getInstance().liberarConexion();
         }
@@ -42,6 +50,14 @@ public class PaisDaoOracle implements IPaisDao{
         prepStmt.close();
         ServiceLocator.getInstance().commit();
       }catch (Exception e) {
+    	  try {
+          	if (ServiceLocator.getInstance().getConexion()!=null) {
+                  System.err.print("se enviara petición de Rollback");
+                  ServiceLocator.getInstance().rollback();
+          	}
+          } catch(Exception excep) {
+          	throw new RHException( this.getClass().getName(), " Error en modificarPais() ROLLBACK "+ excep.getMessage());
+          }
     	  throw new RHException( this.getClass().getName(), " Error en  modificarPais() "+ e.getMessage());
 	} finally {
          ServiceLocator.getInstance().liberarConexion();
@@ -81,7 +97,15 @@ public class PaisDaoOracle implements IPaisDao{
         prepStmt.close();
         ServiceLocator.getInstance().commit();
       }catch (Exception e) {
-    	  throw new RHException( this.getClass().getName(), " Error en borrarPais() "+ e.getMessage());
+    	  try {
+	        	if (ServiceLocator.getInstance().getConexion()!=null) {
+	                System.err.print("se enviara petición de Rollback");
+	                ServiceLocator.getInstance().rollback();
+	        	}
+	        } catch(Exception excep) {
+	        	throw new RHException( this.getClass().getName(), " Error en borrarPais() ROLLBACK "+ excep.getMessage());
+	        }
+		  	throw new RHException( this.getClass().getName(), " Error en borrarPais() "+ e.getMessage());
 	}  finally {
          ServiceLocator.getInstance().liberarConexion();
       }

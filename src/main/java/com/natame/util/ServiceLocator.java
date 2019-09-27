@@ -103,6 +103,7 @@ public class ServiceLocator {
 				e.printStackTrace();
 			}
 		}
+		conexion = null;
 		conexionLibre = true;
 		notify();
 	}

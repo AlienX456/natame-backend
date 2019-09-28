@@ -33,7 +33,7 @@ public class RepresentanteVentas {
 	private String ESDIRECTOR;
 	
 	@Column(name = "FK_N_IDGRADO", nullable = false, length = 1)
-	private int GRADO;
+	private String GRADO;
 	
 	@Column(name = "FK_N_IDREGION", nullable = false, length = 1)
 	private int REGION;
@@ -122,11 +122,11 @@ public class RepresentanteVentas {
 		ESDIRECTOR = eSDIRETOR;
 	}
 
-	public int getGRADO() {
+	public String getGRADO() {
 		return GRADO;
 	}
 
-	public void setGRADO(int gRADO) {
+	public void setGRADO(String gRADO) {
 		GRADO = gRADO;
 	}
 

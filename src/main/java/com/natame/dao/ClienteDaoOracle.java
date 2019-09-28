@@ -15,7 +15,7 @@ public class ClienteDaoOracle implements IClienteDao{
 	public Cliente buscarCliente(int cedula, Usuario user) throws RHException {
 		Cliente resultado = new Cliente();
 		try {
-			String strSQL = "SELECT * FROM NATAME.CLIENTE WHERE PK_N_CEDULA=?";
+			String strSQL = "SELECT * FROM CLIENTE WHERE PK_N_CEDULA=?";
 			Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 			PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
 	        prepStmt.setInt(1, cedula); 
@@ -36,5 +36,39 @@ public class ClienteDaoOracle implements IClienteDao{
 	          ServiceLocator.getInstance().liberarConexion();
 	       }
 	}
+
+	@Override
+	public void registrarCliente(Cliente cliente, Usuario user) throws RHException {
+	      try {
+	          String strSQL = "INSERT INTO CLIENTE VALUES(?,?,?,?,?,?,?)";
+	          Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
+	          PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
+	          prepStmt.setInt(1, cliente.getCEDULA()); 
+	          prepStmt.setString(2, cliente.getNOMBRECLIENTE());
+	          prepStmt.setString(3, cliente.getAPELLIDOCLIENTE()); 
+	          prepStmt.setString(4, cliente.getTELEFONO()); 
+	          prepStmt.setString(5, cliente.getDIRECCION()); 
+	          prepStmt.setString(6, cliente.getCIUDAD()); 
+	          prepStmt.setString(7, cliente.getCORREOELECTRONICO()); 
+	          prepStmt.executeUpdate();
+	          prepStmt.close();
+	          ServiceLocator.getInstance().commit();
+	        } catch (Exception e) {
+	      	  try {
+		        	if (ServiceLocator.getInstance().getConexion()!=null) {
+		                System.err.print("se enviara petición de Rollback");
+		                ServiceLocator.getInstance().rollback();
+		        	}
+		        } catch(Exception excep) {
+		        	throw new RHException( this.getClass().getName(), " Error en  registrarCliente() ROLLBACK "+ excep.getMessage());
+		        }
+	        	throw new RHException( this.getClass().getName(), " Error en  registrarCliente() "+ e.getMessage());
+			}  finally {
+	           ServiceLocator.getInstance().liberarConexion();
+	        }
+	}
+	
+
+	
 
 }

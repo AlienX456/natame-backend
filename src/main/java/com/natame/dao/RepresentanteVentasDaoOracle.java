@@ -14,7 +14,7 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	@Override
 	public void registrarRepresentanteVentas(RepresentanteVentas rp, Usuario user) throws RHException {
 	      try {
-	          String strSQL = "INSERT INTO NATAME.REPRESENTANTEVENTAS VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+	          String strSQL = "INSERT INTO REPRESENTANTEVENTAS VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	          Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 	          PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
 	          prepStmt.setInt(1, rp.getIDENTIFICACION()); 
@@ -26,8 +26,8 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	          prepStmt.setString(7, rp.getTELEFONOCONTACTO()); 
 	          prepStmt.setString(8, rp.getDIRECCION());
 	          prepStmt.setString(9, rp.getESDIRECTOR());
-	          prepStmt.setInt(10, rp.getGRADO());
-	          prepStmt.setInt(11, rp.getREGION());
+	          prepStmt.setInt(10, rp.getREGION());
+	          prepStmt.setString(11, rp.getGRADO());
 	          prepStmt.executeUpdate();
 	          prepStmt.close();
 	          ServiceLocator.getInstance().commit();
@@ -50,7 +50,7 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	public RepresentanteVentas buscarRepresentanteVentas(int identificacion, Usuario user) throws RHException {
 		RepresentanteVentas resultado = new RepresentanteVentas();
 		try {
-			String strSQL = "SELECT * FROM NATAME.REPRESENTANTEVENTAS WHERE PK_N_IDENTIFICACION=?";
+			String strSQL = "SELECT * FROM REPRESENTANTEVENTAS WHERE PK_N_IDENTIFICACION=?";
 			Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 			PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
 	        prepStmt.setInt(1, identificacion); 
@@ -64,7 +64,7 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	        resultado.setTELEFONOCONTACTO(rs.getString("V_TELEFONOCONTACTO"));
 	        resultado.setDIRECCION(rs.getString("V_DIRECCION"));
 	        resultado.setESDIRECTOR(rs.getString("V_ESDIRECTOR"));
-	        resultado.setGRADO(rs.getInt("FK_N_IDGRADO"));
+	        resultado.setGRADO(rs.getString("V_GRADO"));
 	        resultado.setREGION(rs.getInt("FK_N_IDREGION"));
 	        prepStmt.close();
 	        return resultado;

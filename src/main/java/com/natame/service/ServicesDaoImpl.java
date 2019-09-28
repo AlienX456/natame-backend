@@ -100,6 +100,10 @@ public class ServicesDaoImpl {
     	return this.icliente.buscarCliente(cedula, usuario);
     }
     
+    public void registrarCliente(Cliente cliente, String auth) throws RHException{
+    	Usuario usuario = bauth.getUserPassword(auth);
+    	this.icliente.registrarCliente(cliente, usuario);
+    }
     
     /*
      * 

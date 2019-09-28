@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.natame.model.Cliente;
 import com.natame.model.Pais;
 import com.natame.model.RepresentanteVentas;
 import com.natame.service.ServicesDaoImpl;
@@ -106,6 +107,29 @@ public class ControllerAPI {
 			return "{\"error\":\""+e+"\"}";
 		}
 	}
+	
+	@RequestMapping(value = "/cliente", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String registrarCliente(@RequestBody Cliente cliente, @RequestHeader(value="Authorization",required=false) String auth) {
+		try {
+			serviciosDao.registrarCliente(cliente, auth);
+			return "{\"resultado\":\"transacción finalizada con exito\"}";
+		}catch (Exception e) {
+			return "{\"error\":\""+e+"\"}";
+		}
+	}
+	/*
+	 POST LIKE
+	{
+    "cedula":1030675823,
+    "nombrecliente":"Esteban",
+    "apellidocliente":"Romero",
+    "correoelectronico":"estebanelias27",
+    "telefono":"3103018563",
+    "direccion":"cll 40 a",
+    "ciudad":"Bogotá"
+	}
+	*/
 	
 	@RequestMapping(value = "/representante", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody

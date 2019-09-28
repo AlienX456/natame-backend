@@ -15,7 +15,7 @@ public class PaisDaoOracle implements IPaisDao{
 	@Override
 	public void incluirPais(Pais pais, Usuario user) throws RHException {
       try {
-          String strSQL = "INSERT INTO NATAME.PAIS(PK_N_IDPAIS,V_NOMBREPAIS) VALUES(?,?)";
+          String strSQL = "INSERT INTO PAIS(PK_N_IDPAIS,V_NOMBREPAIS) VALUES(?,?)";
           Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
           PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
           prepStmt.setInt(1,pais.getIDPAIS()); 
@@ -41,7 +41,7 @@ public class PaisDaoOracle implements IPaisDao{
 	@Override
 	public void modificarPais(Pais pais, Usuario user) throws RHException {
 	try {
-        String strSQL = "UPDATE NATAME.PAIS set V_NOMBREPAIS WHERE PK_N_IDPAIS=?";
+        String strSQL = "UPDATE PAIS set V_NOMBREPAIS WHERE PK_N_IDPAIS=?";
         Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
         PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
         prepStmt.setString(1, pais.getNOMBREPAIS()); 
@@ -68,7 +68,7 @@ public class PaisDaoOracle implements IPaisDao{
 	public Pais buscarPais(Integer pais_id, Usuario user) throws RHException {
 		Pais resultado = new Pais();
 		try {
-			String strSQL = "SELECT * FROM NATAME.PAIS WHERE PK_N_IDPAIS=?";
+			String strSQL = "SELECT * FROM PAIS WHERE PK_N_IDPAIS=?";
 			Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 			PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
 	        prepStmt.setInt(1, pais_id); 
@@ -89,7 +89,7 @@ public class PaisDaoOracle implements IPaisDao{
 	@Override
 	public void borrarPais(Integer pais_id, Usuario user) throws RHException {
 	try {
-        String strSQL = "DELETE FROM NATAME.PAIS WHERE PK_N_IDPAIS=?";
+        String strSQL = "DELETE FROM PAIS WHERE PK_N_IDPAIS=?";
         Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
         PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
         prepStmt.setInt(1,pais_id);  
@@ -116,7 +116,7 @@ public class PaisDaoOracle implements IPaisDao{
 	public Pais[] verPaises(Usuario user) throws RHException {
 	ArrayList<Pais> lista = new ArrayList<Pais>();
 	try {
-		String strSQL = "SELECT * FROM NATAME.PAIS";
+		String strSQL = "SELECT * FROM PAIS";
 		Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 		PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
         ResultSet rs = prepStmt.executeQuery();

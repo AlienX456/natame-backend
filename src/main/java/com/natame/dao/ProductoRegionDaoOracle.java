@@ -17,8 +17,8 @@ public class ProductoRegionDaoOracle implements IProductoRegionDao {
 		ArrayList<ProductoRegion> lista = new ArrayList<ProductoRegion>();
 		try {
 			String strSQL = "SELECT PR.PK_N_IDPRODUCTOREGION, P.PK_N_IDPRODUCTO, P.V_NOMBREPRODUCTO, PR.N_CANTIDAD, PR.N_PRECIO "
-					+ "FROM NATAME.PRODUCTO P, NATAME.REGION R, NATAME.PRODUCTO_REGION PR"
-					+ " WHERE PR.FK_N_IDREGION=R.PK_N_IDREGION AND PR.FK_N_IDPRODUCTO=P.PK_N_IDPRODUCTO "
+					+ "FROM PRODUCTO P, PRODUCTO_REGION PR "
+					+ "WHERE PR.FK_N_IDPRODUCTO=P.PK_N_IDPRODUCTO "
 					+ "AND PR.FK_N_IDREGION=? AND PR.N_CANTIDAD>0";
 			Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 			PreparedStatement prepStmt = conexion.prepareStatement(strSQL);

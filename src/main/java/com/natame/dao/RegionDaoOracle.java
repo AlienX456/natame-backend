@@ -16,7 +16,7 @@ public class RegionDaoOracle implements IRegionDao{
 	public Region[] verRegiones(Usuario user) throws RHException {
 		ArrayList<Region> lista = new ArrayList<Region>();
 		try {
-			String strSQL = "SELECT * FROM NATAME.REGION";
+			String strSQL = "SELECT * FROM REGION";
 			Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 			PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
 	        ResultSet rs = prepStmt.executeQuery();

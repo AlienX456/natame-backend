@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.natame.model.Cliente;
+import com.natame.model.ClientePedido;
 import com.natame.model.Pais;
 import com.natame.model.RepresentanteVentas;
 import com.natame.service.ServicesDaoImpl;
@@ -154,8 +155,6 @@ public class ControllerAPI {
     "fechacontrato":"30-06-2019",
     "telefonocontacto":"3103018563",
     "direccion":"cll 40 a",
-    "esdirector":"S",
-    "grado":4,
     "region":1
 	}
 	 */
@@ -201,6 +200,24 @@ public class ControllerAPI {
 		}
 	}
 	
+	
+	@RequestMapping(value = "/pedido", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String registrarPedido(@RequestBody ClientePedido cp, @RequestHeader(value="Authorization",required=false) String auth) {
+		System.out.println(cp.getCEDULA()+" "+cp.getPD()[0].getIDPRODUCTOREGION()+" "+cp.getPD()[0].getCANTIDAD()+"  "+cp.getPD()[1].getIDPRODUCTOREGION());
+		return "";
+		
+	}
+	
+	/*
+	 {
+	"cedula":1234,
+	"pd":[
+		{"idproductoregion":5,"cantidad":10},
+		{"idproductoregion":11,"cantidad":200}
+	]
+	}
+	 */
 	
 	
 

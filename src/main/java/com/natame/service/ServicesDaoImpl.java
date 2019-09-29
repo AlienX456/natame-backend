@@ -115,6 +115,9 @@ public class ServicesDaoImpl {
     
     public void registrarRepresentanteVentas(RepresentanteVentas rp, String auth) throws RHException {
     	Usuario usuario = bauth.getUserPassword(auth);
+    	//add begineer to rp and set as no director
+    	rp.setGRADO("BEGINEER");
+    	rp.setESDIRECTOR("N");
     	this.irp.registrarRepresentanteVentas(rp, usuario);
     }
     

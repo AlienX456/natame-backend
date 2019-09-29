@@ -34,8 +34,7 @@ public class ProductoRegionDaoOracle implements IProductoRegionDao {
 	    	   throw new RHException( this.getClass().getName(), "Error en buscarProductoxRegion() "+ e.getMessage());
 			}finally {
 			  ServiceLocator.getInstance().liberarConexion(); 
-	       }		
-		
+	       }			
 	}
 
 }

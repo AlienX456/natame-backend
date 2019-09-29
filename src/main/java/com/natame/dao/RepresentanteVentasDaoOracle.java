@@ -56,6 +56,7 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	        prepStmt.setInt(1, identificacion); 
 	        ResultSet rs = prepStmt.executeQuery();
 	        rs.next();
+	        resultado.setIDENTIFICACION(rs.getInt("PK_N_IDENTIFICACION"));
 	        resultado.setNOMBRE(rs.getString("V_NOMBRE"));
 	        resultado.setCORREOELECTRONICO(rs.getString("V_CORREOELECTRONICO"));
 	        resultado.setGENERO(rs.getString("V_GENERO"));

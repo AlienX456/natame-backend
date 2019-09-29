@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -217,7 +216,7 @@ public class ControllerAPI {
 		
 	}
 	
-	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	@ResponseBody
 	public String registrarPedido() {
 	   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  

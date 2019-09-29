@@ -5,7 +5,11 @@ package com.natame.controller;
 
 
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -204,10 +208,25 @@ public class ControllerAPI {
 	@RequestMapping(value = "/pedido", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String registrarPedido(@RequestBody ClientePedido cp, @RequestHeader(value="Authorization",required=false) String auth) {
-		System.out.println(cp.getCEDULA()+" "+cp.getPD()[0].getIDPRODUCTOREGION()+" "+cp.getPD()[0].getCANTIDAD()+"  "+cp.getPD()[1].getIDPRODUCTOREGION());
-		return "";
+		try {
+			serviciosDao.realizarPedido(cp, auth);
+			return "{\"resultado\":\"transacción finalizada con exito\"}";
+		}catch (Exception e) {
+			return "{\"error\":\""+e+"\"}";
+		}
 		
 	}
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public String registrarPedido() {
+	   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
+	   LocalDateTime now = LocalDateTime.now();
+	   String date = dtf.format(now);
+	   System.out.println(date);
+	   return date;	
+	}
+
 	
 	/*
 	 {

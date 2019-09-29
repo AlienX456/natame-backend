@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import com.natame.auth.BasicAuthConfig;
 import com.natame.auth.Usuario;
 import com.natame.dao.ClienteDaoOracle;
+import com.natame.dao.ClientePedidoDaoOracle;
 import com.natame.dao.IClienteDao;
+import com.natame.dao.IClientePedidoDao;
 import com.natame.dao.IPaisDao;
 import com.natame.dao.IProductoRegionDao;
 import com.natame.dao.IRegionDao;
@@ -16,6 +18,7 @@ import com.natame.dao.ProductoRegionDaoOracle;
 import com.natame.dao.RegionDaoOracle;
 import com.natame.dao.RepresentanteVentasDaoOracle;
 import com.natame.model.Cliente;
+import com.natame.model.ClientePedido;
 import com.natame.model.Pais;
 import com.natame.model.ProductoRegion;
 import com.natame.model.Region;
@@ -32,6 +35,7 @@ public class ServicesDaoImpl {
 	private IRepresentanteVentasDao irp;
 	private IRegionDao iregion;
 	private IProductoRegionDao ipr;
+	private IClientePedidoDao icp;
 	
 	private BasicAuthConfig bauth;
 	
@@ -42,6 +46,7 @@ public class ServicesDaoImpl {
 		this.irp = new RepresentanteVentasDaoOracle();
 		this.iregion = new RegionDaoOracle();
 		this.ipr = new ProductoRegionDaoOracle();
+		this.icp = new ClientePedidoDaoOracle();
 	}
 	
 	
@@ -150,6 +155,20 @@ public class ServicesDaoImpl {
     public ProductoRegion[] buscarProductosxRegion(int region, String auth) throws RHException{
     	Usuario usuario = bauth.getUserPassword(auth);
     	return this.ipr.buscarProductoxRegion(region, usuario);
+    }
+    
+    /*
+     * PEDIDDO
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
+    
+    public void realizarPedido(ClientePedido cp, String auth) throws RHException {
+    	Usuario usuario = bauth.getUserPassword(auth);
+    	icp.realizarPedido(cp, usuario);
     }
     
 }

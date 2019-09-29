@@ -25,6 +25,7 @@ import com.natame.service.ServicesDaoImpl;
 
 
 @RestController
+@RequestMapping(value = "/api")
 public class ControllerAPI {
 	
 	

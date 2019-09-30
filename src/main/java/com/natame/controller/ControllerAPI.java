@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -43,7 +44,7 @@ public class ControllerAPI {
 	 * REALIZADO CON FINES DE PRUEBA
 	 */
 	
-	
+	@CrossOrigin
 	@RequestMapping(value = "/pais", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public String obtenerPaises(@RequestHeader(value="Authorization",required=false) String auth){
@@ -54,6 +55,7 @@ public class ControllerAPI {
 		}
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value = "/pais/{id}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public String obtenerPais(@PathVariable int id, @RequestHeader(value="Authorization",required=false) String auth) {
@@ -64,6 +66,7 @@ public class ControllerAPI {
 		}
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value = "/pais", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String insertarPais(@RequestBody Pais pais, @RequestHeader(value="Authorization",required=false) String auth) {
@@ -75,6 +78,7 @@ public class ControllerAPI {
 		}
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value = "/pais/{id}", method = RequestMethod.DELETE, produces = "application/json")
 	@ResponseBody
 	public String borrarPais(@PathVariable int id, @RequestHeader(value="Authorization",required=false) String auth) {
@@ -102,7 +106,7 @@ public class ControllerAPI {
 	 * 
 	 */
 	
-	
+	@CrossOrigin
 	@RequestMapping(value = "/cliente/{cedula}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public String buscarCliente(@PathVariable int cedula, @RequestHeader(value="Authorization",required=false) String auth) {
@@ -113,6 +117,7 @@ public class ControllerAPI {
 		}
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value = "/cliente", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String registrarCliente(@RequestBody Cliente cliente, @RequestHeader(value="Authorization",required=false) String auth) {
@@ -136,6 +141,7 @@ public class ControllerAPI {
 	}
 	*/
 	
+	@CrossOrigin
 	@RequestMapping(value = "/representante", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String registrarRepresentanteVentas(@RequestBody RepresentanteVentas rp, @RequestHeader(value="Authorization",required=false) String auth) {
@@ -162,6 +168,7 @@ public class ControllerAPI {
 	}
 	 */
 	
+	@CrossOrigin
 	@RequestMapping(value = "/representante/{identificacion}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public String buscarRepresentanteVentas(@PathVariable int identificacion, @RequestHeader(value="Authorization",required=false) String auth) {
@@ -181,6 +188,7 @@ public class ControllerAPI {
 	 * 
 	 */
 	
+	@CrossOrigin
 	@RequestMapping(value = "/region", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public String verRegiones(@RequestHeader(value="Authorization",required=false) String auth) {
@@ -193,6 +201,7 @@ public class ControllerAPI {
 	
 	//Muestra todos los productos disponibles con su imagen, 
 	//descripción, precio y cantidad disponible de la regional seleccionada
+	@CrossOrigin
 	@RequestMapping(value = "/productoregion/{region}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public String buscarProductoxRegion(@PathVariable int region, @RequestHeader(value="Authorization",required=false) String auth) {
@@ -203,7 +212,7 @@ public class ControllerAPI {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@RequestMapping(value = "/pedido", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String registrarPedido(@RequestBody ClientePedido cp, @RequestHeader(value="Authorization",required=false) String auth) {
@@ -216,6 +225,7 @@ public class ControllerAPI {
 		
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	@ResponseBody
 	public String registrarPedido() {

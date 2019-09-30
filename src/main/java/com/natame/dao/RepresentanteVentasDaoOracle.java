@@ -14,7 +14,9 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	@Override
 	public void registrarRepresentanteVentas(RepresentanteVentas rp, Usuario user) throws RHException {
 	      try {
-	          String strSQL = "INSERT INTO REPRESENTANTEVENTAS VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+	    	  
+	    	  //TABLA
+	          String strSQL = "INSERT INTO REPRESENTANTEVENTAS VALUES(?,?,?,?,TO_DATE(?, 'DD-MM-YYYY'),TO_DATE(?, 'DD-MM-YYYY'),?,?,?,?,?)";
 	          Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 	          PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
 	          prepStmt.setInt(1, rp.getIDENTIFICACION()); 
@@ -30,6 +32,33 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	          prepStmt.setString(11, rp.getGRADO());
 	          prepStmt.executeUpdate();
 	          prepStmt.close();
+	          
+	          System.out.println("-");
+	          
+	          //USUARIO
+	          String strSQL2 = "CREATE USER U"+rp.getIDENTIFICACION()+" "
+	          					+ "IDENTIFIED BY "+rp.getIDENTIFICACION()+" "
+	          					+ "DEFAULT TABLESPACE USER_TABLE "
+	          					+ "TEMPORARY TABLESPACE USER_TABLE_TEMP "
+	          					+ "QUOTA 2M ON USER_TABLE";
+	          prepStmt = conexion.prepareStatement(strSQL2);
+	          prepStmt.executeUpdate();
+	          prepStmt.close();
+	          
+	          System.out.println("--");
+	          
+	          //PERMISOS
+	          String strSQL3 = "GRANT R_RV TO U"+rp.getIDENTIFICACION();
+	          prepStmt = conexion.prepareStatement(strSQL3);
+	          prepStmt.executeUpdate();
+	          prepStmt.close();
+		      String strSQL4 = "GRANT R_CLIENTE,CONNECT TO U"+rp.getIDENTIFICACION()+" WITH ADMIN OPTION";
+		      prepStmt = conexion.prepareStatement(strSQL4);
+		      prepStmt.executeUpdate();
+		      prepStmt.close();
+			
+				System.out.println("---");
+				
 	          ServiceLocator.getInstance().commit();
 	        } catch (Exception e) {
 	      	  try {

@@ -52,6 +52,28 @@ public class ClienteDaoOracle implements IClienteDao{
 	          prepStmt.setString(7, cliente.getCORREOELECTRONICO()); 
 	          prepStmt.executeUpdate();
 	          prepStmt.close();
+	          System.out.println("-");
+	          
+	          //USUARIO
+	          String strSQL2 = "CREATE USER UC"+cliente.getCEDULA()+" "
+	          					+ "IDENTIFIED BY "+cliente.getCEDULA()+" "
+	          					+ "DEFAULT TABLESPACE USER_TABLE "
+	          					+ "TEMPORARY TABLESPACE USER_TABLE_TEMP "
+	          					+ "QUOTA 2M ON USER_TABLE";
+	          prepStmt = conexion.prepareStatement(strSQL2);
+	          prepStmt.executeUpdate();
+	          prepStmt.close();
+	          
+	          System.out.println("--");
+	          
+	          //PERMISOS
+	          String strSQL3 = "GRANT R_CLIENTE,CONNECT TO UC"+cliente.getCEDULA();
+				prepStmt = conexion.prepareStatement(strSQL3);
+				prepStmt.executeUpdate();
+				prepStmt.close();
+				
+				System.out.println("---");
+		    
 	          ServiceLocator.getInstance().commit();
 	        } catch (Exception e) {
 	      	  try {

@@ -95,7 +95,7 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	        resultado.setTELEFONOCONTACTO(rs.getString("V_TELEFONOCONTACTO"));
 	        resultado.setDIRECCION(rs.getString("V_DIRECCION"));
 	        resultado.setESDIRECTOR(rs.getString("V_ESDIRECTOR"));
-	        resultado.setGRADO(rs.getString("V_GRADO"));
+	        resultado.setGRADO(rs.getString("FK_V_NOMBREGRADO"));
 	        resultado.setREGION(rs.getInt("FK_N_IDREGION"));
 	        prepStmt.close();
 	        return resultado;

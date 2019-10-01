@@ -58,13 +58,14 @@ public class ClienteDaoOracle implements IClienteDao{
 	          
 	          
 	          //ASOCIACION CON RP
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-				System.out.println(dtf.format(LocalDateTime.now()));
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				
-	          String strSQL4 = "INSERT INTO REPRESENTANTEVENTAS_CLIENTE "
-	          		+ "VALUES(TO_DATE("+dtf.format(LocalDateTime.now())+",'YYYY-MM-DD HH24:MI:SS'),"
-	          				+ "NULL,Seq_RepVentasCliente.NEXTVAL,"+cliente.getCEDULA()+","+cliente.getRP()+")";
+	          String strSQL4 = "INSERT INTO REPRESENTANTEVENTAS_CLIENTE VALUES"
+	          		+ "(TO_DATE(?,'YYYY-MM-DD'),"
+	          		+ "NULL,SEQ_REPVENTASCLIENTE.NEXTVAL,"+cliente.getCEDULA()+","+cliente.getRP()+")";
+
 	          prepStmt = conexion.prepareStatement(strSQL4);
+	          prepStmt.setString(1, dtf.format(LocalDateTime.now()));
 	          prepStmt.executeUpdate();
 	          prepStmt.close();
 	          

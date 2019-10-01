@@ -130,6 +130,13 @@ public class ServicesDaoImpl {
     	this.irp.registrarRepresentanteVentas(rp, usuario);
     }
     
+    public void registrarRepresentanteVentasMaster(RepresentanteVentas rp, String auth) throws RHException {
+    	Usuario usuario = bauth.getUserPassword(auth);
+    	rp.setGRADO("MASTER");
+    	rp.setESDIRECTOR("N");
+    	this.irp.registrarRepresentanteVentas(rp, usuario);
+    }
+    
     public RepresentanteVentas buscarRepresentanteVentas(int identificacion, String auth) throws RHException {
     	Usuario usuario = bauth.getUserPassword(auth);
     	return this.irp.buscarRepresentanteVentas(identificacion, usuario);

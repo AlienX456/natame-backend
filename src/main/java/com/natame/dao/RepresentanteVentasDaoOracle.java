@@ -49,14 +49,29 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	          System.out.println("--");
 	          
 	          //PERMISOS
-	          String strSQL3 = "GRANT R_RV TO U"+rp.getIDENTIFICACION();
-	          prepStmt = conexion.prepareStatement(strSQL3);
-	          prepStmt.executeUpdate();
-	          prepStmt.close();
-		      String strSQL4 = "GRANT R_CLIENTE,CONNECT TO U"+rp.getIDENTIFICACION()+" WITH ADMIN OPTION";
-		      prepStmt = conexion.prepareStatement(strSQL4);
-		      prepStmt.executeUpdate();
-		      prepStmt.close();
+	          
+	          if(rp.getGRADO().equals("BEGINEER")) {
+		          String strSQL3 = "GRANT R_RV TO U"+rp.getIDENTIFICACION();
+		          prepStmt = conexion.prepareStatement(strSQL3);
+		          prepStmt.executeUpdate();
+		          prepStmt.close();
+		          
+			      String strSQL4 = "GRANT R_CLIENTE,CONNECT TO U"+rp.getIDENTIFICACION()+" WITH ADMIN OPTION";
+			      prepStmt = conexion.prepareStatement(strSQL4);
+			      prepStmt.executeUpdate();
+			      prepStmt.close();
+	          }else if(rp.getGRADO().equals("MASTER")) {
+		          String strSQL3 = "GRANT R_RV,R_RVM TO U"+rp.getIDENTIFICACION()+" WITH ADMIN OPTION";
+		          prepStmt = conexion.prepareStatement(strSQL3);
+		          prepStmt.executeUpdate();
+		          prepStmt.close();
+		          
+			      String strSQL4 = "GRANT R_CLIENTE,CONNECT TO U"+rp.getIDENTIFICACION()+" WITH ADMIN OPTION";
+			      prepStmt = conexion.prepareStatement(strSQL4);
+			      prepStmt.executeUpdate();
+			      prepStmt.close();
+	          }
+
 			
 				System.out.println("---");
 				

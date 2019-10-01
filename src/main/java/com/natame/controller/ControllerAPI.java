@@ -153,6 +153,18 @@ public class ControllerAPI {
 		}
 	}
 	
+	@CrossOrigin
+	@RequestMapping(value = "/representantem", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String registrarRepresentanteVentasMaster(@RequestBody RepresentanteVentas rp, @RequestHeader(value="Authorization",required=false) String auth) {
+		try {
+			serviciosDao.registrarRepresentanteVentasMaster(rp, auth);
+			return "{\"resultado\":\"transacción finalizada con exito\"}";
+		}catch (Exception e) {
+			return "{\"error\":\""+e+"\"}";
+		}
+	}
+	
 	/*
 	 * POST BODY LIKE :
 	{

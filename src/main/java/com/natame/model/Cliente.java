@@ -32,6 +32,18 @@ public class Cliente {
 	@Column(name = "V_CORREOELECTRONICO", nullable = true, length=50)
 	private String CORREOELECTRONICO;
 
+	private int RP;
+	
+
+
+	public int getRP() {
+		return RP;
+	}
+
+	public void setRP(int rP) {
+		RP = rP;
+	}
+
 	public int getCEDULA() {
 		return CEDULA;
 	}

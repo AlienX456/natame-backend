@@ -38,6 +38,10 @@ public class RepresentanteVentas {
 	@Column(name = "FK_N_IDREGION", nullable = false, length = 1)
 	private int REGION;
 	
+	private int RPM;
+	
+	
+	
 	//LEFT
 	/*
 	@ManyToOne
@@ -49,6 +53,14 @@ public class RepresentanteVentas {
 	@JoinColumn(name = "FK_N_IDREGION", nullable = false, referencedColumnName = "PK_N_IDREGION")
 	private Region region;
 	*/
+
+	public int getRPM() {
+		return RPM;
+	}
+
+	public void setRPM(int rPM) {
+		RPM = rPM;
+	}
 
 	public int getIDENTIFICACION() {
 		return IDENTIFICACION;

@@ -16,7 +16,7 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	      try {
 	    	  
 	    	  //TABLA
-	          String strSQL = "INSERT INTO REPRESENTANTEVENTAS VALUES(?,?,?,?,TO_DATE(?, 'DD-MM-YYYY'),TO_DATE(?, 'DD-MM-YYYY'),?,?,?,?,?)";
+	          String strSQL = "INSERT INTO REPRESENTANTEVENTAS VALUES(?,?,?,?,TO_DATE(?, 'DD-MM-YYYY'),TO_DATE(?, 'DD-MM-YYYY'),?,?,?,?,?,?)";
 	          Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 	          PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
 	          prepStmt.setInt(1, rp.getIDENTIFICACION()); 
@@ -30,6 +30,7 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	          prepStmt.setString(9, rp.getESDIRECTOR());
 	          prepStmt.setInt(10, rp.getREGION());
 	          prepStmt.setString(11, rp.getGRADO());
+	          prepStmt.setInt(12, rp.getRPM());
 	          prepStmt.executeUpdate();
 	          prepStmt.close();
 	          

@@ -3,6 +3,8 @@ package com.natame.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.natame.auth.Usuario;
 import com.natame.model.Cliente;
@@ -54,6 +56,21 @@ public class ClienteDaoOracle implements IClienteDao{
 	          prepStmt.close();
 	          System.out.println("-");
 	          
+	          
+	          //ASOCIACION CON RP
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+				System.out.println(dtf.format(LocalDateTime.now()));
+				
+	          String strSQL4 = "INSERT INTO REPRESENTANTEVENTAS_CLIENTE "
+	          		+ "VALUES(TO_DATE("+dtf.format(LocalDateTime.now())+",'YYYY-MM-DD HH24:MI:SS'),"
+	          				+ "NULL,Seq_RepVentasCliente.NEXTVAL,"+cliente.getCEDULA()+","+cliente.getRP()+")";
+	          prepStmt = conexion.prepareStatement(strSQL4);
+	          prepStmt.executeUpdate();
+	          prepStmt.close();
+	          
+	          System.out.println("--");
+	          
+	          
 	          //USUARIO
 	          String strSQL2 = "CREATE USER UC"+cliente.getCEDULA()+" "
 	          					+ "IDENTIFIED BY "+cliente.getCEDULA()+" "
@@ -64,7 +81,7 @@ public class ClienteDaoOracle implements IClienteDao{
 	          prepStmt.executeUpdate();
 	          prepStmt.close();
 	          
-	          System.out.println("--");
+	          System.out.println("---");
 	          
 	          //PERMISOS
 	          String strSQL3 = "GRANT R_CLIENTE,CONNECT TO UC"+cliente.getCEDULA();
@@ -72,13 +89,15 @@ public class ClienteDaoOracle implements IClienteDao{
 				prepStmt.executeUpdate();
 				prepStmt.close();
 				
-				System.out.println("---");
+				System.out.println("----");
+				
+				
 		    
 	          ServiceLocator.getInstance().commit();
 	        } catch (Exception e) {
 	      	  try {
 		        	if (ServiceLocator.getInstance().getConexion()!=null) {
-		                System.err.print("se enviara petición de Rollback");
+		                System.err.println("se enviara petición de Rollback");
 		                ServiceLocator.getInstance().rollback();
 		        	}
 		        } catch(Exception excep) {

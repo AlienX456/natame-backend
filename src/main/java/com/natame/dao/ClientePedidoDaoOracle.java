@@ -13,7 +13,7 @@ public class ClientePedidoDaoOracle implements IClientePedidoDao{
 	@Override
 	public void realizarPedido(ClientePedido cp, Usuario user) throws RHException {
 	      try {
-	          String strSQL = "INSERT INTO PEDIDO VALUES(SEQ_PEDIDO.NEXTVAL,?,?,TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'),?,?)";
+	          String strSQL = "INSERT INTO PEDIDO VALUES(SEQ_PEDIDO.NEXTVAL,?,?,TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'),?,?,NULL)";
 	          Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 	          PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
 	          prepStmt.setString(1, cp.getESTADO()); 
@@ -24,6 +24,8 @@ public class ClientePedidoDaoOracle implements IClientePedidoDao{
 	          prepStmt.executeUpdate();
 	          prepStmt.close();
 	          System.out.println("-");
+	          
+	          
 	          String strSQL2 = "INSERT INTO PRODUCTOREGION_PEDIDO "
 	          		+ "VALUES(SEQ_PRODUCTOREGIONPEDIDO.NEXTVAL,?,"
 	          		+ "(SELECT PK_N_IDPEDIDO FROM PEDIDO WHERE FK_N_CEDULA = ? AND D_FECHAPEDIDO = TO_DATE(?,'YYYY-MM-DD HH24:MI:SS')),"
@@ -37,6 +39,23 @@ public class ClientePedidoDaoOracle implements IClientePedidoDao{
 	        	  prepStmt.executeUpdate();
 	          }
 	          prepStmt.close();
+	          
+	          System.out.println("--");
+	          
+	          //ACTUALIZAR INVENTARIO
+	          String strSQL3 = "UPDATE PRODUCTO_REGION "
+	          		+ "SET N_CANTIDAD=(SELECT N_CANTIDAD FROM PRODUCTO_REGION WHERE PK_N_IDPRODUCTOREGION=?)-? WHERE PK_N_IDPRODUCTOREGION=?";
+	          prepStmt = conexion.prepareStatement(strSQL3);
+	          for (int i = 0; i < cp.getPD().length; i++) {
+	        	  prepStmt.setInt(1, cp.getPD()[i].getIDPRODUCTOREGION());
+	        	  prepStmt.setInt(2, cp.getPD()[i].getCANTIDAD());
+	        	  prepStmt.setInt(3, cp.getPD()[i].getIDPRODUCTOREGION());
+	        	  prepStmt.executeUpdate();
+	          }
+	          prepStmt.close();
+	          
+	          System.out.println("---");
+	          
 	          ServiceLocator.getInstance().commit();
 	        } catch (Exception e) {
 	      	  try {

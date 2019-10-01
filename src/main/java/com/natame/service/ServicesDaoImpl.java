@@ -7,8 +7,10 @@ import com.natame.auth.BasicAuthConfig;
 import com.natame.auth.Usuario;
 import com.natame.dao.ClienteDaoOracle;
 import com.natame.dao.ClientePedidoDaoOracle;
+import com.natame.dao.ComisionDaoOracle;
 import com.natame.dao.IClienteDao;
 import com.natame.dao.IClientePedidoDao;
+import com.natame.dao.IComisionDao;
 import com.natame.dao.IPaisDao;
 import com.natame.dao.IProductoRegionDao;
 import com.natame.dao.IRegionDao;
@@ -36,6 +38,7 @@ public class ServicesDaoImpl {
 	private IRegionDao iregion;
 	private IProductoRegionDao ipr;
 	private IClientePedidoDao icp;
+	private IComisionDao ic;
 	
 	private BasicAuthConfig bauth;
 	
@@ -47,6 +50,7 @@ public class ServicesDaoImpl {
 		this.iregion = new RegionDaoOracle();
 		this.ipr = new ProductoRegionDaoOracle();
 		this.icp = new ClientePedidoDaoOracle();
+		this.ic = new ComisionDaoOracle();
 	}
 	
 	
@@ -169,6 +173,20 @@ public class ServicesDaoImpl {
     public void realizarPedido(ClientePedido cp, String auth) throws RHException {
     	Usuario usuario = bauth.getUserPassword(auth);
     	icp.realizarPedido(cp, usuario);
+    }
+    
+    /*
+     * COMISION
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
+    
+    public int obtenerComision(int representante,String auth) throws RHException{
+    	Usuario usuario = bauth.getUserPassword(auth);
+    	return ic.obtenerValorComisionTotal(representante, usuario);
     }
     
 }

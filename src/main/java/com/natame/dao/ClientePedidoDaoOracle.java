@@ -56,6 +56,21 @@ public class ClientePedidoDaoOracle implements IClientePedidoDao{
 	          
 	          System.out.println("---");
 	          
+	          //ACTUALIZAR VALOR
+	          String strSQL4 = "UPDATE PEDIDO "
+	          		+ "SET V_VALOR=(SELECT SUM(A.N_CANTIDAD*N_PRECIO) FROM PRODUCTOREGION_PEDIDO A, PRODUCTO_REGION B "
+	          		+ "WHERE FK_N_IDPEDIDO=(SELECT PK_N_IDPEDIDO FROM PEDIDO WHERE FK_N_CEDULA = ? AND D_FECHAPEDIDO = TO_DATE(?,'YYYY-MM-DD HH24:MI:SS')) AND B.PK_N_IDPRODUCTOREGION=A.FK_N_IDPRODUCTOREGION) "
+	          		+ "WHERE PK_N_IDPEDIDO=(SELECT PK_N_IDPEDIDO FROM PEDIDO WHERE FK_N_CEDULA = ? AND D_FECHAPEDIDO = TO_DATE(?,'YYYY-MM-DD HH24:MI:SS'))";
+	          prepStmt = conexion.prepareStatement(strSQL4);
+	          prepStmt.setInt(1, cp.getCEDULA());
+	          prepStmt.setString(2, cp.getFECHAPEDIDO());
+	          prepStmt.setInt(3, cp.getCEDULA());
+	          prepStmt.setString(4, cp.getFECHAPEDIDO());
+	          prepStmt.executeUpdate();
+	          prepStmt.close();
+	          
+	          System.out.println("----");
+	          
 	          ServiceLocator.getInstance().commit();
 	        } catch (Exception e) {
 	      	  try {

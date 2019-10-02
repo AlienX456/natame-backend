@@ -250,6 +250,18 @@ public class ControllerAPI {
 	}
 	
 	@CrossOrigin
+	@RequestMapping(value = "/vtotal/{representante}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public String obtenerTotal(@PathVariable int representante, @RequestHeader(value="Authorization",required=false) String auth) {
+		try {
+			return "{\"total\":\""+serviciosDao.obtenerValorTotal(representante, auth)+"\"}";
+		}catch (Exception e) {
+			return "{\"error\":\""+e+"\"}";
+		}
+		
+	}
+	
+	@CrossOrigin
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	@ResponseBody
 	public String registrarPedido() {

@@ -196,4 +196,9 @@ public class ServicesDaoImpl {
     	return ic.obtenerValorComisionTotal(representante, usuario);
     }
     
+    public int obtenerValorTotal(int representante,String auth) throws RHException{
+    	Usuario usuario = bauth.getUserPassword(auth);
+    	return ic.obtenerValorTotal(representante, usuario);
+    }
+    
 }

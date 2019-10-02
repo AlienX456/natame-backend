@@ -5,4 +5,5 @@ import com.natame.util.RHException;
 
 public interface IComisionDao {
 	public int obtenerValorComisionTotal(int representanteVentas, Usuario user) throws RHException;
+	public int obtenerValorTotal(int representanteVentas, Usuario user) throws RHException;
 }

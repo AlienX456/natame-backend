@@ -15,11 +15,10 @@ public class PaisDaoOracle implements IPaisDao{
 	@Override
 	public void incluirPais(Pais pais, Usuario user) throws RHException {
       try {
-          String strSQL = "INSERT INTO PAIS(PK_N_IDPAIS,V_NOMBREPAIS) VALUES(?,?)";
+          String strSQL = "INSERT INTO PAIS(PK_N_IDPAIS,V_NOMBREPAIS) VALUES(Seq_Pais.nextval,?)";
           Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
           PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
-          prepStmt.setInt(1,pais.getIDPAIS()); 
-          prepStmt.setString(2, pais.getNOMBREPAIS());  
+          prepStmt.setString(1, pais.getNOMBREPAIS());  
           prepStmt.executeUpdate();
           prepStmt.close();
           ServiceLocator.getInstance().commit();

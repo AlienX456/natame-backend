@@ -130,9 +130,9 @@ public class ServicesDaoImpl {
     	this.irp.registrarRepresentanteVentas(rp, usuario);
     }
     
-    public RepresentanteVentas buscarRepresentanteVentas(int identificacion, String auth) throws RHException {
+    public RepresentanteVentas buscarRepresentanteVentas(String auth) throws RHException {
     	Usuario usuario = bauth.getUserPassword(auth);
-    	return this.irp.buscarRepresentanteVentas(identificacion, usuario);
+    	return this.irp.buscarRepresentanteVentas(usuario);
     }
     
     /*

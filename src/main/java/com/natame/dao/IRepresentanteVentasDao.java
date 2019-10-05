@@ -6,5 +6,5 @@ import com.natame.util.RHException;
 
 public interface IRepresentanteVentasDao {
 	public void registrarRepresentanteVentas(RepresentanteVentas rp, Usuario user) throws RHException;
-	public RepresentanteVentas buscarRepresentanteVentas(int identificacion, Usuario user) throws RHException;
+	public RepresentanteVentas buscarRepresentanteVentas(Usuario user) throws RHException;
 }

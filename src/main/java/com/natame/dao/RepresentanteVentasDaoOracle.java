@@ -99,26 +99,29 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	}
 	
 	@Override
-	public RepresentanteVentas buscarRepresentanteVentas(int identificacion, Usuario user) throws RHException {
+	public RepresentanteVentas buscarRepresentanteVentas(Usuario user) throws RHException {
 		RepresentanteVentas resultado = new RepresentanteVentas();
 		try {
-			String strSQL = "SELECT * FROM REPRESENTANTEVENTAS WHERE PK_N_IDENTIFICACION=?";
+			String strSQL = "SELECT * FROM REPRESENTANTEVENTAS WHERE C_USUARIO=?";
 			Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 			PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
-	        prepStmt.setInt(1, identificacion); 
+	        prepStmt.setString(1, user.getNombre());
 	        ResultSet rs = prepStmt.executeQuery();
 	        rs.next();
-	        resultado.setIDENTIFICACION(rs.getInt("PK_N_IDENTIFICACION"));
-	        resultado.setNOMBRE(rs.getString("V_NOMBRE"));
-	        resultado.setCORREOELECTRONICO(rs.getString("V_CORREOELECTRONICO"));
-	        resultado.setGENERO(rs.getString("V_GENERO"));
-	        resultado.setFECHANACIMIENTO(rs.getString("D_FECHANACIMIENTO"));
-	        resultado.setFECHACONTRATO(rs.getString("D_FECHACONTRATO"));
-	        resultado.setTELEFONOCONTACTO(rs.getString("V_TELEFONOCONTACTO"));
-	        resultado.setDIRECCION(rs.getString("V_DIRECCION"));
-	        resultado.setESDIRECTOR(rs.getString("V_ESDIRECTOR"));
-	        resultado.setGRADO(rs.getString("FK_V_NOMBREGRADO"));
-	        resultado.setREGION(rs.getInt("FK_N_IDREGION"));
+	        resultado.setIDENTIFICACION(rs.getInt("K_IDENTIFICACION"));
+	        resultado.setNOMBRE(rs.getString("C_NOMBRE"));
+	        resultado.setCORREOELECTRONICO(rs.getString("C_CORREOELECTRONICO"));
+	        resultado.setGENERO(rs.getString("I_GENERO"));
+	        resultado.setFECHANACIMIENTO(rs.getString("F_NACIMIENTO"));
+	        resultado.setFECHACONTRATO(rs.getString("F_CONTRATO"));
+	        resultado.setTELEFONOCONTACTO(rs.getString("N_TELEFONO"));
+	        resultado.setDIRECCION(rs.getString("C_DIRECCION"));
+	        resultado.setESDIRECTOR(rs.getString("I_ESDIRECTOR"));
+	        resultado.setGRADO(rs.getString("K_GRADORV"));
+	        resultado.setREGION(rs.getInt("K_REGION"));
+	        resultado.setRVMTIPOID(rs.getString("K_RVMTIPOID"));
+	        resultado.setRVMID(rs.getInt("K_RVMID"));
+	        resultado.setUSUARIO(rs.getString("C_USUARIO"));
 	        prepStmt.close();
 	        return resultado;
 			}catch (Exception e) {

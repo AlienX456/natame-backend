@@ -151,11 +151,11 @@ public class ControllerAPI {
 	}
 	
 	@CrossOrigin
-	@RequestMapping(value = "/cliente/{cedula}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/cliente", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public String buscarCliente(@PathVariable int cedula, @RequestHeader(value="Authorization",required=false) String auth) {
+	public String buscarCliente( @RequestHeader(value="Authorization",required=false) String auth) {
 		try {
-			return objectMapper.writeValueAsString(serviciosDao.buscarCliente(cedula, auth));
+			return objectMapper.writeValueAsString(serviciosDao.buscarCliente(auth));
 		}catch (Exception e) {
 			return "{\"error\":\""+e+"\"}";
 		}

@@ -14,23 +14,25 @@ import com.natame.util.ServiceLocator;
 public class ClienteDaoOracle implements IClienteDao{
 
 	@Override
-	public Cliente buscarCliente(int cedula, Usuario user) throws RHException {
+	public Cliente buscarCliente(Usuario user) throws RHException {
 		Cliente resultado = new Cliente();
 		try {
-			String strSQL = "SELECT * FROM CLIENTE WHERE PK_N_CEDULA=?";
+			String strSQL = "SELECT * FROM CLIENTE WHERE C_USUARIO=?";
 			Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 			PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
-	        prepStmt.setInt(1, cedula); 
+	        prepStmt.setString(1, user.getNombre()); 
 	        ResultSet rs = prepStmt.executeQuery();
-	        rs.next();/*
-	        resultado.setCEDULA(rs.getInt("PK_N_CEDULA"));
-	        resultado.setNOMBRECLIENTE(rs.getString("V_NOMBRECLIENTE"));
-	        resultado.setAPELLIDOCLIENTE(rs.getString("V_APELLIDOCLIENTE"));
-	        resultado.setTELEFONO(rs.getString("V_TELEFONO"));
-	        resultado.setDIRECCION(rs.getString("V_DIRECCION"));
-	        resultado.setCIUDAD(rs.getString("V_CIUDAD"));
-	        resultado.setCORREOELECTRONICO(rs.getString("V_CORREOELECTRONICO"));
-	        prepStmt.close();*/
+	        rs.next();
+	        resultado.setIDENTIFICACION(rs.getInt("K_IDENTIFICACION"));
+	        resultado.setNOMBRE(rs.getString("C_NOMBRE"));
+	        resultado.setAPELLIDO(rs.getString("C_APELLIDO"));
+	        resultado.setTELEFONO(rs.getString("N_TELEFONO"));
+	        resultado.setDIRECCION(rs.getString("C_DIRECCION"));
+	        resultado.setCIUDAD(rs.getString("C_CIUDAD"));
+	        resultado.setCORREOELECTRONICO(rs.getString("C_CORREO"));
+	        resultado.setTIPOID(rs.getString("K_TIPOID"));
+	        resultado.setUSERNAME(rs.getString("C_USUARIO"));
+	        prepStmt.close();
 	        return resultado;
 			}catch (Exception e) {
 	    	   throw new RHException( this.getClass().getName(), "Error en buscarCliente() "+ e.getMessage());

@@ -104,9 +104,9 @@ public class ServicesDaoImpl {
      * 
      */
     
-    public Cliente buscarCliente(int cedula, String auth) throws RHException {
+    public Cliente buscarCliente(String auth) throws RHException {
     	Usuario usuario = bauth.getUserPassword(auth);
-    	return this.icliente.buscarCliente(cedula, usuario);
+    	return this.icliente.buscarCliente(usuario);
     }
     
     public void registrarCliente(Cliente cliente, String auth) throws RHException{

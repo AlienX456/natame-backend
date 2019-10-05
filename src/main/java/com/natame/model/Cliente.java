@@ -5,11 +5,13 @@ package com.natame.model;
 
 public class Cliente {
 
-	private int CEDULA;
+	private int IDENTIFICACION;
 	
-	private String NOMBRECLIENTE;
+	private String TIPOID;
 	
-	private String APELLIDOCLIENTE;
+	private String NOMBRE;
+	
+	private String APELLIDO;
 	
 	private String TELEFONO;
 
@@ -18,12 +20,9 @@ public class Cliente {
 	private String CIUDAD;
 	
 	private String CORREOELECTRONICO;
-	
-	private String TIPOID;
 
 	private String USERNAME;
 	
-	private int RPCREADOR;
 	
 
 	public String getTIPOID() {
@@ -42,28 +41,28 @@ public class Cliente {
 		USERNAME = uSERNAME;
 	}
 
-	public int getCEDULA() {
-		return CEDULA;
+	public int getIDENTIFICACION() {
+		return IDENTIFICACION;
 	}
 
-	public void setCEDULA(int cEDULA) {
-		CEDULA = cEDULA;
+	public void setIDENTIFICACION(int iDENTIFICACION) {
+		IDENTIFICACION = iDENTIFICACION;
 	}
 
-	public String getNOMBRECLIENTE() {
-		return NOMBRECLIENTE;
+	public String getNOMBRE() {
+		return NOMBRE;
 	}
 
-	public void setNOMBRECLIENTE(String nOMBRECLIENTE) {
-		NOMBRECLIENTE = nOMBRECLIENTE;
+	public void setNOMBRE(String nOMBRE) {
+		NOMBRE = nOMBRE;
 	}
 
-	public String getAPELLIDOCLIENTE() {
-		return APELLIDOCLIENTE;
+	public String getAPELLIDO() {
+		return APELLIDO;
 	}
 
-	public void setAPELLIDOCLIENTE(String aPELLIDOCLIENTE) {
-		APELLIDOCLIENTE = aPELLIDOCLIENTE;
+	public void setAPELLIDO(String aPELLIDO) {
+		APELLIDO = aPELLIDO;
 	}
 
 	public String getTELEFONO() {
@@ -98,13 +97,6 @@ public class Cliente {
 		CORREOELECTRONICO = cORREOELECTRONICO;
 	}
 
-	public int getRPCREADOR() {
-		return RPCREADOR;
-	}
-
-	public void setRPCREADOR(int rPCREADOR) {
-		RPCREADOR = rPCREADOR;
-	}
 
 	
 }

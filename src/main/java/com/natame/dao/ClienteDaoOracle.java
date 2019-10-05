@@ -22,7 +22,7 @@ public class ClienteDaoOracle implements IClienteDao{
 			PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
 	        prepStmt.setInt(1, cedula); 
 	        ResultSet rs = prepStmt.executeQuery();
-	        rs.next();
+	        rs.next();/*
 	        resultado.setCEDULA(rs.getInt("PK_N_CEDULA"));
 	        resultado.setNOMBRECLIENTE(rs.getString("V_NOMBRECLIENTE"));
 	        resultado.setAPELLIDOCLIENTE(rs.getString("V_APELLIDOCLIENTE"));
@@ -30,7 +30,7 @@ public class ClienteDaoOracle implements IClienteDao{
 	        resultado.setDIRECCION(rs.getString("V_DIRECCION"));
 	        resultado.setCIUDAD(rs.getString("V_CIUDAD"));
 	        resultado.setCORREOELECTRONICO(rs.getString("V_CORREOELECTRONICO"));
-	        prepStmt.close();
+	        prepStmt.close();*/
 	        return resultado;
 			}catch (Exception e) {
 	    	   throw new RHException( this.getClass().getName(), "Error en buscarCliente() "+ e.getMessage());
@@ -45,9 +45,9 @@ public class ClienteDaoOracle implements IClienteDao{
 	          String strSQL = "INSERT INTO CLIENTE VALUES(?,?,?,?,?,?,?,?,?)";
 	          Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 	          PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
-	          prepStmt.setInt(1, cliente.getCEDULA()); 
-	          prepStmt.setString(2, cliente.getNOMBRECLIENTE());
-	          prepStmt.setString(3, cliente.getAPELLIDOCLIENTE()); 
+	          prepStmt.setInt(1, cliente.getIDENTIFICACION()); 
+	          prepStmt.setString(2, cliente.getNOMBRE());
+	          prepStmt.setString(3, cliente.getAPELLIDO()); 
 	          prepStmt.setString(4, cliente.getTELEFONO()); 
 	          prepStmt.setString(5, cliente.getDIRECCION()); 
 	          prepStmt.setString(6, cliente.getCIUDAD()); 
@@ -60,20 +60,24 @@ public class ClienteDaoOracle implements IClienteDao{
 	          
 	          
 	          //ASOCIACION CON RP
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mi:ss");
-				
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+			
 	          String strSQL2 = "INSERT INTO ASOCIACION VALUES"
 	          		+ "(TO_DATE(?,'YYYY-MM-DD HH:MI:SS'),"
 	          		+ "?,"
-	          		+ "SEQ_REPVENTASCLIENTE.NEXTVAL,"
-	          		+ "?,?,?)";
+	          		+ "adminnatame.SEQ_Asociacion.NEXTVAL,"
+	          		+ "?,"
+	          		+ "(SELECT K_IDENTIFICACION FROM REPRESENTANTEVENTAS WHERE C_USUARIO=?),"
+	          		+ "?,"
+	          		+ "(SELECT K_TIPOID FROM REPRESENTANTEVENTAS WHERE C_USUARIO=?))";
 
 	          prepStmt = conexion.prepareStatement(strSQL2);
 	          prepStmt.setString(1, dtf.format(LocalDateTime.now()));
 	          prepStmt.setNull(2,java.sql.Types.DATE);
-	          prepStmt.setInt(3,cliente.getCEDULA());
-	          prepStmt.setInt(4,cliente.getRPCREADOR());
-	          prepStmt.setString(5,cliente.getUSERNAME());
+	          prepStmt.setInt(3,cliente.getIDENTIFICACION());
+	          prepStmt.setString(4,user.getNombre());
+	          prepStmt.setString(5,cliente.getTIPOID());
+	          prepStmt.setString(6,user.getNombre());
 	          prepStmt.executeUpdate();
 	          prepStmt.close();
 	          
@@ -81,11 +85,11 @@ public class ClienteDaoOracle implements IClienteDao{
 	          
 	          
 	          //USUARIO
-	          String strSQL3 = "CREATE USER UC"+cliente.getCEDULA()+" "
-	          					+ "IDENTIFIED BY "+cliente.getCEDULA()+" "
-	          					+ "DEFAULT TABLESPACE USER_TABLE "
-	          					+ "TEMPORARY TABLESPACE USER_TABLE_TEMP "
-	          					+ "QUOTA 2M ON USER_TABLE";
+	          String strSQL3 = "CREATE USER "+cliente.getUSERNAME()+" "
+	          					+ "IDENTIFIED BY "+cliente.getIDENTIFICACION()+" "
+	          					+ "DEFAULT TABLESPACE USER_NATAME "
+	          					+ "TEMPORARY TABLESPACE USRTEMP_NATAME "
+	          					+ "QUOTA 2M ON USER_NATAME";
 	          prepStmt = conexion.prepareStatement(strSQL3);
 	          prepStmt.executeUpdate();
 	          prepStmt.close();
@@ -93,7 +97,7 @@ public class ClienteDaoOracle implements IClienteDao{
 	          System.out.println("---");
 	          
 	          //PERMISOS
-	          String strSQL4 = "GRANT R_CLIENTE,CONNECT TO UC"+cliente.getCEDULA();
+	          String strSQL4 = "GRANT R_CLIENTE,CONNECT TO "+cliente.getUSERNAME();
 				prepStmt = conexion.prepareStatement(strSQL4);
 				prepStmt.executeUpdate();
 				prepStmt.close();

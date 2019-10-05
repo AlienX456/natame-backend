@@ -175,13 +175,15 @@ public class ControllerAPI {
 	/*
 	 POST LIKE
 	{
-    "cedula":1030675823,
-    "nombrecliente":"Esteban",
-    "apellidocliente":"Romero",
-    "correoelectronico":"estebanelias27",
-    "telefono":"3103018563",
+    "identificacion":1,
+    "tipoid":"CC"
+    "nombre":"test",
+    "apellido":"cliente",
+    "correoelectronico":"test@",
+    "telefono":"1",
     "direccion":"cll 40 a",
-    "ciudad":"Bogotá"
+    "ciudad":"Bogotá",
+    "username":"testc1"
 	}
 	*/
 

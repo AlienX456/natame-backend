@@ -21,7 +21,7 @@ public class RegionDaoOracle implements IRegionDao{
 			PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
 	        ResultSet rs = prepStmt.executeQuery();
 	        while(rs.next()) {
-	        	lista.add(new Region(rs.getInt("PK_N_IDREGION"),rs.getString("V_NOMBREREGION"),rs.getInt("FK_N_IDPAIS")));
+	        	lista.add(new Region(rs.getInt("K_REGION"),rs.getString("C_NOMBREREGION"),rs.getInt("K_PAIS")));
 	        }
 	        prepStmt.close();
 	        return lista.toArray(new Region[lista.size()]);

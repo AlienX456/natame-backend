@@ -208,7 +208,7 @@ public class ControllerAPI {
 		}
 	}
 	
-	//Muestra todos los productos disponibles con su imagen, 
+	//Muestra todos los productos disponibles 
 	//descripción, precio y cantidad disponible de la regional seleccionada
 	@CrossOrigin
 	@RequestMapping(value = "/productoregion/{region}", method = RequestMethod.GET, produces = "application/json")

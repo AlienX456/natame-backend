@@ -2,9 +2,9 @@ package com.natame.model;
 
 public class ProductoRegion {
 	
-	private int IDPRODUCTOREGION;
+	private int INVENTARIO;
 	
-	private int IDPRODUCTO;
+	private int PRODUCTO;
 	
 	private String NOMBREPRODUCTO;
 	
@@ -15,8 +15,8 @@ public class ProductoRegion {
 	
 
 	public ProductoRegion(int iDPRODUCTOREGION, int iDPRODUCTO, String nOMBREPRODUCTO, int cANTIDAD, int pRECIO) {
-		IDPRODUCTOREGION = iDPRODUCTOREGION;
-		IDPRODUCTO = iDPRODUCTO;
+		setINVENTARIO(iDPRODUCTOREGION);
+		setPRODUCTO(iDPRODUCTO);
 		NOMBREPRODUCTO = nOMBREPRODUCTO;
 		CANTIDAD = cANTIDAD;
 		PRECIO = pRECIO;
@@ -38,14 +38,6 @@ public class ProductoRegion {
 		PRECIO = pRECIO;
 	}
 
-	public int getIDPRODUCTO() {
-		return IDPRODUCTO;
-	}
-
-	public void setIDPRODUCTO(int iDPRODUCTO) {
-		IDPRODUCTO = iDPRODUCTO;
-	}
-
 	public String getNOMBREPRODUCTO() {
 		return NOMBREPRODUCTO;
 	}
@@ -54,12 +46,20 @@ public class ProductoRegion {
 		NOMBREPRODUCTO = nOMBREPRODUCTO;
 	}
 
-	public int getIDPRODUCTOREGION() {
-		return IDPRODUCTOREGION;
+	public int getINVENTARIO() {
+		return INVENTARIO;
 	}
 
-	public void setIDPRODUCTOREGION(int iDPRODUCTOREGION) {
-		IDPRODUCTOREGION = iDPRODUCTOREGION;
+	public void setINVENTARIO(int iNVENTARIO) {
+		INVENTARIO = iNVENTARIO;
+	}
+
+	public int getPRODUCTO() {
+		return PRODUCTO;
+	}
+
+	public void setPRODUCTO(int pRODUCTO) {
+		PRODUCTO = pRODUCTO;
 	}
 	
 	

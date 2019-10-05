@@ -16,14 +16,14 @@ public class ProductoRegionDaoOracle implements IProductoRegionDao {
 	public ProductoRegion[] buscarProductoxRegion(int region, Usuario user) throws RHException {
 		ArrayList<ProductoRegion> lista = new ArrayList<ProductoRegion>();
 		try {
-			String strSQL = "SELECT * FROM PRODUCTOREGIONVIEW WHERE FK_N_IDREGION=?";
+			String strSQL = "SELECT * FROM INVENTARIOVIEW WHERE K_REGION=?";
 			Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 			PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
 			prepStmt.setInt(1,region);
 	        ResultSet rs = prepStmt.executeQuery();
 	        while(rs.next()) {
-	        	lista.add(new ProductoRegion(rs.getInt("PK_N_IDPRODUCTOREGION"),rs.getInt("PK_N_IDPRODUCTO")
-	        			, rs.getString("V_NOMBREPRODUCTO"), rs.getInt("N_CANTIDAD"), rs.getInt("N_PRECIO")));
+	        	lista.add(new ProductoRegion(rs.getInt("K_INVENTARIO"),rs.getInt("K_PRODUCTO")
+	        			, rs.getString("V_NOMBRE"), rs.getInt("N_CANTIDAD"), rs.getInt("T_PRECIO")));
 	        }
 	        prepStmt.close();
 	        return lista.toArray(new ProductoRegion[lista.size()]);

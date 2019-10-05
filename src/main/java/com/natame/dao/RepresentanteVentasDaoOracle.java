@@ -15,9 +15,11 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	public void registrarRepresentanteVentas(RepresentanteVentas rp, Usuario user) throws RHException {
 	      try {
 	    	  
-	    	  //TABLA
 	          String strSQL = "INSERT INTO REPRESENTANTEVENTAS "
-	          		+ "VALUES(?,?,?,?,?,TO_DATE(?, 'DD-MM-YYYY'),TO_DATE(?, 'DD-MM-YYYY'),?,?,?,?,?,?,?,?)";
+	          		+ "VALUES(?,?,?,?,?,TO_DATE(?, 'DD-MM-YYYY'),TO_DATE(?, 'DD-MM-YYYY'),?,?,?,?,?,"
+	          		+ "(SELECT K_TIPOID FROM REPRESENTANTEVENTAS WHERE C_USUARIO=?),"
+	          		+ "(SELECT K_IDENTIFICACION FROM REPRESENTANTEVENTAS WHERE C_USUARIO=?),"
+	          		+ "?)";
 	          Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 	          PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
 	          prepStmt.setInt(1, rp.getIDENTIFICACION()); 
@@ -32,8 +34,8 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	          prepStmt.setString(10, rp.getESDIRECTOR());
 	          prepStmt.setString(11, rp.getGRADO());
 	          prepStmt.setInt(12, rp.getREGION());
-	          prepStmt.setString(13, rp.getRVMTIPOID());
-	          prepStmt.setInt(14, rp.getRVMID());
+	          prepStmt.setString(13, user.getNombre());
+	          prepStmt.setString(14, user.getNombre());
 	          prepStmt.setString(15, rp.getUSUARIO());
 	          prepStmt.executeUpdate();
 	          prepStmt.close();

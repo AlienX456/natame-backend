@@ -1,47 +1,45 @@
 package com.natame.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "Cliente")
+
+
 public class Cliente {
-	
-	@Column(name = "PK_N_CEDULA")
-	@Id
+
 	private int CEDULA;
 	
-	
-	@Column(name = "V_NOMBRECLIENTE", nullable = false, length=50)
 	private String NOMBRECLIENTE;
 	
-	@Column(name = "V_APELLIDOCLIENTE", nullable = false, length=50)
 	private String APELLIDOCLIENTE;
 	
-	@Column(name = "V_TELEFONO", nullable = false, length=50)
 	private String TELEFONO;
-	
-	@Column(name = "V_DIRECCION", nullable = false, length=50)
+
 	private String DIRECCION;
 	
-	@Column(name = "V_CIUDAD", nullable = false, length=50)
 	private String CIUDAD;
 	
-	@Column(name = "V_CORREOELECTRONICO", nullable = true, length=50)
 	private String CORREOELECTRONICO;
+	
+	private String TIPOID;
 
-	private int RP;
+	private String USERNAME;
+	
+	private int RPCREADOR;
 	
 
-
-	public int getRP() {
-		return RP;
+	public String getTIPOID() {
+		return TIPOID;
 	}
 
-	public void setRP(int rP) {
-		RP = rP;
+	public void setTIPOID(String tIPOID) {
+		TIPOID = tIPOID;
+	}
+
+	public String getUSERNAME() {
+		return USERNAME;
+	}
+
+	public void setUSERNAME(String uSERNAME) {
+		USERNAME = uSERNAME;
 	}
 
 	public int getCEDULA() {
@@ -99,6 +97,14 @@ public class Cliente {
 	public void setCORREOELECTRONICO(String cORREOELECTRONICO) {
 		CORREOELECTRONICO = cORREOELECTRONICO;
 	}
-	
+
+	public int getRPCREADOR() {
+		return RPCREADOR;
+	}
+
+	public void setRPCREADOR(int rPCREADOR) {
+		RPCREADOR = rPCREADOR;
+	}
+
 	
 }

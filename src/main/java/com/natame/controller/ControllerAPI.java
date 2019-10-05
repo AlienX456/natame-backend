@@ -93,8 +93,7 @@ public class ControllerAPI {
 	/*
 	POST BODY LIKE :
 	{
-	    "idpais": 4,
-	    "nombrepais": "Canada"
+	    "nombrepais": "nombredelpais"
 	}
 	*/
 	
@@ -105,6 +104,51 @@ public class ControllerAPI {
 	 * 
 	 * 
 	 */
+	
+	
+	@CrossOrigin
+	@RequestMapping(value = "/representante", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public String registrarRepresentanteVentas(@RequestBody RepresentanteVentas rp, @RequestHeader(value="Authorization",required=false) String auth) {
+		try {
+			serviciosDao.registrarRepresentanteVentas(rp, auth);
+			return "{\"resultado\":\"transacción finalizada con exito\"}";
+		}catch (Exception e) {
+			return "{\"error\":\""+e+"\"}";
+		}
+	}
+	
+	/*
+	 * POST BODY LIKE :
+	{
+	"identificacion":2,
+	"tipoid":"CC",
+	"nombre":"testrv1",
+	"correoelectronico":"testrv1@",
+	"genero":"A",
+	"fechanacimiento":"27-02-1997",
+	"fechacontrato":"30-06-2019",
+	"telefonocontacto":"3103018563",
+	"direccion":"cll 40 a",
+	"esdirector":"N",
+	"grado":"MASTER",
+	"region":1,
+	"rvmid":1,
+	"rvmtipoid":"CC",
+	"usuario":"testrv1"
+	}
+	 */
+	
+	@CrossOrigin
+	@RequestMapping(value = "/representante/{identificacion}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public String buscarRepresentanteVentas(@PathVariable int identificacion, @RequestHeader(value="Authorization",required=false) String auth) {
+		try {
+			return objectMapper.writeValueAsString(serviciosDao.buscarRepresentanteVentas(identificacion, auth));
+		}catch (Exception e) {
+			return "{\"error\":\""+e+"\"}";
+		}
+	}
 	
 	@CrossOrigin
 	@RequestMapping(value = "/cliente/{cedula}", method = RequestMethod.GET, produces = "application/json")
@@ -140,56 +184,7 @@ public class ControllerAPI {
     "ciudad":"Bogotá"
 	}
 	*/
-	
-	@CrossOrigin
-	@RequestMapping(value = "/representante", method = RequestMethod.POST, produces = "application/json")
-	@ResponseBody
-	public String registrarRepresentanteVentas(@RequestBody RepresentanteVentas rp, @RequestHeader(value="Authorization",required=false) String auth) {
-		try {
-			serviciosDao.registrarRepresentanteVentas(rp, auth);
-			return "{\"resultado\":\"transacción finalizada con exito\"}";
-		}catch (Exception e) {
-			return "{\"error\":\""+e+"\"}";
-		}
-	}
-	
-	@CrossOrigin
-	@RequestMapping(value = "/representantem", method = RequestMethod.POST, produces = "application/json")
-	@ResponseBody
-	public String registrarRepresentanteVentasMaster(@RequestBody RepresentanteVentas rp, @RequestHeader(value="Authorization",required=false) String auth) {
-		try {
-			serviciosDao.registrarRepresentanteVentasMaster(rp, auth);
-			return "{\"resultado\":\"transacción finalizada con exito\"}";
-		}catch (Exception e) {
-			return "{\"error\":\""+e+"\"}";
-		}
-	}
-	
-	/*
-	 * POST BODY LIKE :
-	{
-    "identificacion":1030675823,
-    "nombre":"Esteban",
-    "correoelectronico":"estebanelias27",
-    "genero":"M",
-    "fechanacimiento":"27-02-1997",
-    "fechacontrato":"30-06-2019",
-    "telefonocontacto":"3103018563",
-    "direccion":"cll 40 a",
-    "region":1
-	}
-	 */
-	
-	@CrossOrigin
-	@RequestMapping(value = "/representante/{identificacion}", method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	public String buscarRepresentanteVentas(@PathVariable int identificacion, @RequestHeader(value="Authorization",required=false) String auth) {
-		try {
-			return objectMapper.writeValueAsString(serviciosDao.buscarRepresentanteVentas(identificacion, auth));
-		}catch (Exception e) {
-			return "{\"error\":\""+e+"\"}";
-		}
-	}
+
 	
 	
 	/*CASO DE USO

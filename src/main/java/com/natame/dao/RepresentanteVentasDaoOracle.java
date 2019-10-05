@@ -16,32 +16,36 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	      try {
 	    	  
 	    	  //TABLA
-	          String strSQL = "INSERT INTO REPRESENTANTEVENTAS VALUES(?,?,?,?,TO_DATE(?, 'DD-MM-YYYY'),TO_DATE(?, 'DD-MM-YYYY'),?,?,?,?,?,?)";
+	          String strSQL = "INSERT INTO REPRESENTANTEVENTAS "
+	          		+ "VALUES(?,?,?,?,?,TO_DATE(?, 'DD-MM-YYYY'),TO_DATE(?, 'DD-MM-YYYY'),?,?,?,?,?,?,?,?)";
 	          Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 	          PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
 	          prepStmt.setInt(1, rp.getIDENTIFICACION()); 
-	          prepStmt.setString(2, rp.getNOMBRE());
-	          prepStmt.setString(3, rp.getCORREOELECTRONICO()); 
-	          prepStmt.setString(4, rp.getGENERO()); 
-	          prepStmt.setString(5, rp.getFECHANACIMIENTO()); 
-	          prepStmt.setString(6, rp.getFECHACONTRATO()); 
-	          prepStmt.setString(7, rp.getTELEFONOCONTACTO()); 
-	          prepStmt.setString(8, rp.getDIRECCION());
-	          prepStmt.setString(9, rp.getESDIRECTOR());
-	          prepStmt.setInt(10, rp.getREGION());
+	          prepStmt.setString(2, rp.getTIPOID());
+	          prepStmt.setString(3, rp.getNOMBRE());
+	          prepStmt.setString(4, rp.getCORREOELECTRONICO()); 
+	          prepStmt.setString(5, rp.getGENERO()); 
+	          prepStmt.setString(6, rp.getFECHANACIMIENTO()); 
+	          prepStmt.setString(7, rp.getFECHACONTRATO()); 
+	          prepStmt.setString(8, rp.getTELEFONOCONTACTO()); 
+	          prepStmt.setString(9, rp.getDIRECCION());
+	          prepStmt.setString(10, rp.getESDIRECTOR());
 	          prepStmt.setString(11, rp.getGRADO());
-	          prepStmt.setInt(12, rp.getRPM());
+	          prepStmt.setInt(12, rp.getREGION());
+	          prepStmt.setString(13, rp.getRVMTIPOID());
+	          prepStmt.setInt(14, rp.getRVMID());
+	          prepStmt.setString(15, rp.getUSUARIO());
 	          prepStmt.executeUpdate();
 	          prepStmt.close();
 	          
 	          System.out.println("-");
 	          
 	          //USUARIO
-	          String strSQL2 = "CREATE USER U"+rp.getIDENTIFICACION()+" "
+	          String strSQL2 = "CREATE USER "+rp.getUSUARIO()+" "
 	          					+ "IDENTIFIED BY "+rp.getIDENTIFICACION()+" "
-	          					+ "DEFAULT TABLESPACE USER_TABLE "
-	          					+ "TEMPORARY TABLESPACE USER_TABLE_TEMP "
-	          					+ "QUOTA 2M ON USER_TABLE";
+	          					+ "DEFAULT TABLESPACE USER_NATAME "
+	          					+ "TEMPORARY TABLESPACE USRTEMP_NATAME "
+	          					+ "QUOTA 2M ON USER_NATAME";
 	          prepStmt = conexion.prepareStatement(strSQL2);
 	          prepStmt.executeUpdate();
 	          prepStmt.close();
@@ -49,25 +53,26 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	          System.out.println("--");
 	          
 	          //PERMISOS
+	          String strSQL3 = "";
 	          
-	          if(rp.getGRADO().equals("BEGINEER")) {
-		          String strSQL3 = "GRANT R_RV TO U"+rp.getIDENTIFICACION();
-		          prepStmt = conexion.prepareStatement(strSQL3);
-		          prepStmt.executeUpdate();
-		          prepStmt.close();
-		          
-			      String strSQL4 = "GRANT R_CLIENTE,CONNECT TO U"+rp.getIDENTIFICACION()+" WITH ADMIN OPTION";
-			      prepStmt = conexion.prepareStatement(strSQL4);
-			      prepStmt.executeUpdate();
-			      prepStmt.close();
-	          }else if(rp.getGRADO().equals("MASTER")) {
-		          String strSQL3 = "GRANT R_RV,R_RVM TO U"+rp.getIDENTIFICACION()+" WITH ADMIN OPTION";
-		          prepStmt = conexion.prepareStatement(strSQL3);
-		          prepStmt.executeUpdate();
-		          prepStmt.close();
-		          
-			      String strSQL4 = "GRANT R_CLIENTE,CONNECT TO U"+rp.getIDENTIFICACION()+" WITH ADMIN OPTION";
-			      prepStmt = conexion.prepareStatement(strSQL4);
+	          if(rp.getGRADO().equals("MASTER")) {
+		          strSQL3 = "GRANT R_RV TO "+rp.getUSUARIO()+" WITH ADMIN OPTION";
+	          }else {
+		          strSQL3 = "GRANT R_RV TO "+rp.getUSUARIO();
+	          }
+	          
+	          prepStmt = conexion.prepareStatement(strSQL3);
+	          prepStmt.executeUpdate();
+	          prepStmt.close();
+	          
+		      String strSQL4 = "GRANT R_CLIENTE,CONNECT TO "+rp.getUSUARIO()+" WITH ADMIN OPTION";
+		      prepStmt = conexion.prepareStatement(strSQL4);
+		      prepStmt.executeUpdate();
+		      prepStmt.close();
+	          
+	          if(rp.getGRADO().equals("MASTER")) {
+			      String strSQL5 = "GRANT R_RVM TO "+rp.getUSUARIO();
+			      prepStmt = conexion.prepareStatement(strSQL5);
 			      prepStmt.executeUpdate();
 			      prepStmt.close();
 	          }
@@ -76,6 +81,8 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 				System.out.println("---");
 				
 	          ServiceLocator.getInstance().commit();
+	          
+	          
 	        } catch (Exception e) {
 	      	  try {
 		        	if (ServiceLocator.getInstance().getConexion()!=null) {

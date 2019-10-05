@@ -6,5 +6,5 @@ import com.natame.util.RHException;
 
 public interface IClienteDao {
     public Cliente buscarCliente(int cedula, Usuario user) throws RHException;
-    public void registrarCliente(Cliente cliente, Usuario user) throws RHException;
+    public void registrarCliente(Cliente cliente,Usuario user) throws RHException;
 }

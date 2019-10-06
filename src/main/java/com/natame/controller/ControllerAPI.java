@@ -234,15 +234,19 @@ public class ControllerAPI {
 		
 	}
 	
-	/*
-	 {
-	"cedula":1234,
-	"pd":[
-		{"idproductoregion":5,"cantidad":10},
-		{"idproductoregion":11,"cantidad":200}
-	]
+	@CrossOrigin
+	@RequestMapping(value = "/representante/cliente", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public String listarClientesXRV(@RequestHeader(value="Authorization",required=false) String auth) {
+		try {
+			return objectMapper.writeValueAsString(serviciosDao.listarClientexRV(auth));
+		}catch (Exception e) {
+			return "{\"error\":\""+e+"\"}";
+		}
+		
 	}
-	 */
+	
+	/*
 	
 	@CrossOrigin
 	@RequestMapping(value = "/comision/{representante}", method = RequestMethod.GET, produces = "application/json")
@@ -267,6 +271,8 @@ public class ControllerAPI {
 		}
 		
 	}
+	
+	*/
 	
 	@CrossOrigin
 	@RequestMapping(value = "/test", method = RequestMethod.GET)

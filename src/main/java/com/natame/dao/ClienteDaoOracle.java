@@ -10,6 +10,8 @@ import com.natame.auth.Usuario;
 import com.natame.model.Cliente;
 import com.natame.util.RHException;
 import com.natame.util.ServiceLocator;
+import java.util.ArrayList;
+
 
 public class ClienteDaoOracle implements IClienteDao{
 
@@ -122,6 +124,41 @@ public class ClienteDaoOracle implements IClienteDao{
 			}  finally {
 	           ServiceLocator.getInstance().liberarConexion();
 	        }
+	}
+
+	@Override
+	public Cliente[] listarClientesRV(Usuario user) throws RHException {
+		ArrayList<Cliente> lista = new ArrayList<Cliente>();
+		try {
+			String strSQL = "select c.* from cliente c, asociacion a, representanteventas r "
+					+ "where c.k_identificacion = a.k_idcliente and "
+					+ "a.k_tipoidcliente = c.k_tipoid and r.k_identificacion = a.k_idrv and "
+					+ "a.k_tipoidrv = r.k_tipoid and r.c_usuario = ?";
+			Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
+			PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
+	        prepStmt.setString(1, user.getNombre()); 
+	        ResultSet rs = prepStmt.executeQuery();
+	        while(rs.next()) {
+	        	Cliente resultado = new Cliente();
+		        resultado.setIDENTIFICACION(rs.getInt("K_IDENTIFICACION"));
+		        resultado.setNOMBRE(rs.getString("C_NOMBRE"));
+		        resultado.setAPELLIDO(rs.getString("C_APELLIDO"));
+		        resultado.setTELEFONO(rs.getString("N_TELEFONO"));
+		        resultado.setDIRECCION(rs.getString("C_DIRECCION"));
+		        resultado.setCIUDAD(rs.getString("C_CIUDAD"));
+		        resultado.setCORREOELECTRONICO(rs.getString("C_CORREO"));
+		        resultado.setTIPOID(rs.getString("K_TIPOID"));
+		        resultado.setUSERNAME(rs.getString("C_USUARIO"));
+		        lista.add(resultado);
+	        }
+
+	        prepStmt.close();
+	        return lista.toArray(new Cliente[lista.size()]);
+			}catch (Exception e) {
+	    	   throw new RHException( this.getClass().getName(), "Error en listarClientesRV() "+ e.getMessage());
+			}  finally {
+	          ServiceLocator.getInstance().liberarConexion();
+	       }
 	}
 	
 

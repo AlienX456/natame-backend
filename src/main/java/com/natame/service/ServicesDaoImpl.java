@@ -114,6 +114,11 @@ public class ServicesDaoImpl {
     	this.icliente.registrarCliente(cliente, usuario);
     }
     
+    public Cliente[] listarClientexRV(String auth) throws RHException{
+    	Usuario usuario = bauth.getUserPassword(auth);
+    	return this.icliente.listarClientesRV(usuario);
+    }
+    
     /*
      * 
      * REPRESENTANTE DE VENTAS

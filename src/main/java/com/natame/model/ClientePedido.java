@@ -4,16 +4,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ClientePedido {
-	private int CEDULA;
+	private int identificacion;
+	private String tipoid;
 	private ProductoDetalle[] PD;
 	
 	private String ESTADO;
-	private String CALIFICACION;
+	private int CALIFICACION;
 	private String FECHAPEDIDO;
 	private String MODODEPAGO;
 	
 	ClientePedido(){
-		CALIFICACION = null;
+		setCALIFICACION(0);
 		ESTADO = "GENERADO";
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		System.out.println(dtf.format(LocalDateTime.now()));
@@ -33,21 +34,6 @@ public class ClientePedido {
 	public void setESTADO(String eSTADO) {
 		ESTADO = eSTADO;
 	}
-
-
-
-
-	public String getCALIFICACION() {
-		return CALIFICACION;
-	}
-
-
-
-
-	public void setCALIFICACION(String cALIFICACION) {
-		CALIFICACION = cALIFICACION;
-	}
-
 
 
 
@@ -77,22 +63,54 @@ public class ClientePedido {
 	}
 
 
-
-
-	public int getCEDULA() {
-		return CEDULA;
-	}
-
-	public void setCEDULA(int cEDULA) {
-		CEDULA = cEDULA;
-	}
-
 	public ProductoDetalle[] getPD() {
 		return PD;
 	}
 
 	public void setPD(ProductoDetalle[] pD) {
 		PD = pD;
+	}
+
+
+
+
+	public int getIdentificacion() {
+		return identificacion;
+	}
+
+
+
+
+	public void setIdentificacion(int identificacion) {
+		this.identificacion = identificacion;
+	}
+
+
+
+
+	public String getTipoid() {
+		return tipoid;
+	}
+
+
+
+
+	public void setTipoid(String tipoid) {
+		this.tipoid = tipoid;
+	}
+
+
+
+
+	public int getCALIFICACION() {
+		return CALIFICACION;
+	}
+
+
+
+
+	public void setCALIFICACION(int cALIFICACION) {
+		CALIFICACION = cALIFICACION;
 	}
 
 

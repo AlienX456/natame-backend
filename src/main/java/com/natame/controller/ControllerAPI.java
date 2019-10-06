@@ -234,6 +234,16 @@ public class ControllerAPI {
 		
 	}
 	
+	/*
+	 {
+	"cedula":1234,
+	"pd":[
+		{"idproductoregion":5,"cantidad":10},
+		{"idproductoregion":11,"cantidad":200}
+	]
+	}
+	 */
+	
 	@CrossOrigin
 	@RequestMapping(value = "/comision/{representante}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
@@ -269,16 +279,6 @@ public class ControllerAPI {
 	   return date;	
 	}
 
-	
-	/*
-	 {
-	"cedula":1234,
-	"pd":[
-		{"idproductoregion":5,"cantidad":10},
-		{"idproductoregion":11,"cantidad":200}
-	]
-	}
-	 */
 	
 	
 

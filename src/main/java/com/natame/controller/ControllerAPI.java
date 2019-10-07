@@ -274,6 +274,38 @@ public class ControllerAPI {
 	
 	*/
 	
+	
+	/*CASO DE USO
+	 * SEGURIDAD
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
+	
+	@CrossOrigin
+	@RequestMapping(value = "/usrxrol", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public String obtenerUsuariosXRol(@RequestHeader(value="Authorization",required=false) String auth) {
+		try {
+			return objectMapper.writeValueAsString(this.serviciosDao.obtenerUsuariosXRol(auth));
+		}catch (Exception e) {
+			return "{\"error\":\""+e+"\"}";
+		}
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/rolxprivs", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public String obtenerPermisosXRol(@RequestHeader(value="Authorization",required=false) String auth) {
+		try {
+			return objectMapper.writeValueAsString(this.serviciosDao.obtenerPermisosXRol(auth));
+		}catch (Exception e) {
+			return "{\"error\":\""+e+"\"}";
+		}
+		
+	}
+	
 	@CrossOrigin
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	@ResponseBody

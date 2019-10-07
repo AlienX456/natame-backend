@@ -15,12 +15,16 @@ import com.natame.dao.IPaisDao;
 import com.natame.dao.IProductoRegionDao;
 import com.natame.dao.IRegionDao;
 import com.natame.dao.IRepresentanteVentasDao;
+import com.natame.dao.ISeguridadDao;
 import com.natame.dao.PaisDaoOracle;
 import com.natame.dao.ProductoRegionDaoOracle;
 import com.natame.dao.RegionDaoOracle;
 import com.natame.dao.RepresentanteVentasDaoOracle;
+import com.natame.dao.SeguridadDaoOracle;
 import com.natame.model.Cliente;
 import com.natame.model.ClientePedido;
+import com.natame.model.NatameRolePrivs;
+import com.natame.model.NatameUsrRole;
 import com.natame.model.Pais;
 import com.natame.model.ProductoRegion;
 import com.natame.model.Region;
@@ -39,6 +43,7 @@ public class ServicesDaoImpl {
 	private IProductoRegionDao ipr;
 	private IClientePedidoDao icp;
 	private IComisionDao ic;
+	private ISeguridadDao is;
 	
 	private BasicAuthConfig bauth;
 	
@@ -51,6 +56,7 @@ public class ServicesDaoImpl {
 		this.ipr = new ProductoRegionDaoOracle();
 		this.icp = new ClientePedidoDaoOracle();
 		this.ic = new ComisionDaoOracle();
+		this.is = new SeguridadDaoOracle();
 	}
 	
 	
@@ -199,4 +205,25 @@ public class ServicesDaoImpl {
     	return ic.obtenerValorTotal(representante, usuario);
     }
     
+    
+    
+    /*
+     * SEGURIDAD
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
+    
+    
+    public NatameUsrRole[] obtenerUsuariosXRol(String auth) throws RHException {
+    	Usuario usuario = bauth.getUserPassword(auth);
+		return is.obtenerUsuariosXRol(usuario);
+    }
+    
+    public NatameRolePrivs[] obtenerPermisosXRol(String auth) throws RHException{
+    	Usuario usuario = bauth.getUserPassword(auth);
+		return is.obtenerPermisosXRol(usuario);
+    }
 }

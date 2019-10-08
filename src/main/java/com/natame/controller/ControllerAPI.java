@@ -25,6 +25,7 @@ import com.natame.model.ClientePedido;
 import com.natame.model.Pais;
 import com.natame.model.RepresentanteVentas;
 import com.natame.service.ServicesDaoImpl;
+import com.natame.service.VentaRango;
 
 
 
@@ -246,20 +247,21 @@ public class ControllerAPI {
 		
 	}
 	
-	/*
+	
 	
 	@CrossOrigin
-	@RequestMapping(value = "/comision/{representante}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/venta", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public String obtenerComision(@PathVariable int representante, @RequestHeader(value="Authorization",required=false) String auth) {
+	public String obtenerComision(@RequestBody VentaRango vr, @RequestHeader(value="Authorization",required=false) String auth) {
 		try {
-			return "{\"comision\":\""+serviciosDao.obtenerComision(representante,auth)+"\"}";
+			return objectMapper.writeValueAsString(serviciosDao.obtenerComision(vr.getFINICIAL(), vr.getFFINAL(), auth));
 		}catch (Exception e) {
 			return "{\"error\":\""+e+"\"}";
 		}
 		
 	}
 	
+	/*
 	@CrossOrigin
 	@RequestMapping(value = "/vtotal/{representante}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody

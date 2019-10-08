@@ -29,6 +29,7 @@ import com.natame.model.Pais;
 import com.natame.model.ProductoRegion;
 import com.natame.model.Region;
 import com.natame.model.RepresentanteVentas;
+import com.natame.model.Venta;
 import com.natame.util.RHException;
 
 
@@ -195,9 +196,9 @@ public class ServicesDaoImpl {
      * 
      */
     
-    public int obtenerComision(int representante,String auth) throws RHException{
+    public Venta[] obtenerComision(String finicio, String ffinal,String auth) throws RHException{
     	Usuario usuario = bauth.getUserPassword(auth);
-    	return ic.obtenerValorComisionTotal(representante, usuario);
+    	return ic.obtenerVentaxComisionTotal(finicio, ffinal, usuario);
     }
     
     public int obtenerValorTotal(int representante,String auth) throws RHException{

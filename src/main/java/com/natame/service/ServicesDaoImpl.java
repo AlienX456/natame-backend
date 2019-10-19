@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 
 import com.natame.auth.BasicAuthConfig;
 import com.natame.auth.Usuario;
+import com.natame.dao.CategoriaDaoOracle;
 import com.natame.dao.ClienteDaoOracle;
 import com.natame.dao.ClientePedidoDaoOracle;
 import com.natame.dao.ComisionDaoOracle;
+import com.natame.dao.ICategoriaDao;
 import com.natame.dao.IClienteDao;
 import com.natame.dao.IClientePedidoDao;
 import com.natame.dao.IComisionDao;
@@ -29,6 +31,7 @@ import com.natame.model.Pais;
 import com.natame.model.ProductoRegion;
 import com.natame.model.Region;
 import com.natame.model.RepresentanteVentas;
+import com.natame.model.Subcategoria;
 import com.natame.model.Venta;
 import com.natame.util.RHException;
 
@@ -45,6 +48,7 @@ public class ServicesDaoImpl {
 	private IClientePedidoDao icp;
 	private IComisionDao ic;
 	private ISeguridadDao is;
+	private ICategoriaDao ict;
 	
 	private BasicAuthConfig bauth;
 	
@@ -58,6 +62,7 @@ public class ServicesDaoImpl {
 		this.icp = new ClientePedidoDaoOracle();
 		this.ic = new ComisionDaoOracle();
 		this.is = new SeguridadDaoOracle();
+		this.ict = new CategoriaDaoOracle();
 	}
 	
 	
@@ -226,5 +231,19 @@ public class ServicesDaoImpl {
     public NatameRolePrivs[] obtenerPermisosXRol(String auth) throws RHException{
     	Usuario usuario = bauth.getUserPassword(auth);
 		return is.obtenerPermisosXRol(usuario);
+    }
+    
+    /*
+     * CATEGORIA
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
+    
+    public Subcategoria[] obtenerCategorias(String auth) throws RHException{
+    	Usuario usuario = bauth.getUserPassword(auth);
+    	return ict.obtenerCategorias(usuario);
     }
 }

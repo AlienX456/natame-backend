@@ -199,6 +199,17 @@ public class ControllerAPI {
 	 */
 	
 	@CrossOrigin
+	@RequestMapping(value = "/categoria", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public String verCategorias(@RequestHeader(value="Authorization",required=false) String auth) {
+		try {
+			return objectMapper.writeValueAsString(this.serviciosDao.obtenerCategorias(auth));
+		}  catch (Exception e) {
+			return "{\"error\":\""+e+"\"}";
+		}
+	}
+	
+	@CrossOrigin
 	@RequestMapping(value = "/region", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public String verRegiones(@RequestHeader(value="Authorization",required=false) String auth) {

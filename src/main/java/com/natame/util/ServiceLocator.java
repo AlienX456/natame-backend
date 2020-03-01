@@ -64,7 +64,7 @@ public class ServiceLocator {
 	public void usarCredencialesConexion(String user, String pass) throws Exception {
 		try {
 	         Class.forName("oracle.jdbc.driver.OracleDriver");
-	         conexion = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", user, pass);
+	         conexion = DriverManager.getConnection("jdbc:oracle:thin:@glud.org:8004:xe", user, pass);
 		     conexion.setAutoCommit(false);
 		} catch (Exception e) {
 			  throw new RHException("ServiceLocator","ERROR_CONEXION_BD "+ e);

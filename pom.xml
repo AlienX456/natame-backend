@@ -21,7 +21,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
 		<dependency>
@@ -42,12 +42,13 @@
         </dependency>
         
 
-	
-		<dependency>
-		    <groupId>oracle</groupId>
-		    <artifactId>ojdbc6</artifactId>
-		    <version>11.2.0.4</version>
-		</dependency> 
+			
+    <dependency>
+        <groupId>com.oracle</groupId>
+        <artifactId>ojdbc6</artifactId>
+        <version>11.2.0.4</version>
+    </dependency>
+
         
 	</dependencies>
 

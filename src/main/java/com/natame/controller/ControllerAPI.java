@@ -24,6 +24,7 @@ import com.natame.model.Cliente;
 import com.natame.model.ClientePedido;
 import com.natame.model.Pais;
 import com.natame.model.RepresentanteVentas;
+import com.natame.model.UsuarioPagos;
 import com.natame.service.ServicesDaoImpl;
 import com.natame.service.VentaRango;
 import com.natame.util.RHException;
@@ -265,6 +266,28 @@ public class ControllerAPI {
 	   String date = dtf.format(now);
 	   System.out.println(date);
 	   return date;	
+	}
+	
+	/*===============================================================
+	 * PAGOS
+	 * 
+	 * 
+	 * 
+	 * 
+	 * ===========================================================
+	 */
+	
+	/*
+	 
+	  
+	  
+	 */
+	
+	@CrossOrigin
+	@RequestMapping(value = "/usuariopagos", method = RequestMethod.POST)
+	@ResponseBody
+	public void registrarUsuarioPagos(@RequestBody UsuarioPagos up, @RequestHeader(value="Authorization",required=false) String auth) throws RHException{
+		this.serviciosDao.registrarUsuarioPagos(auth, up);
 	}
 
 	

@@ -9,13 +9,14 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.natame</groupId>
-	<artifactId>NatAmE</artifactId>
+	<artifactId>Natame</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>NatAmE</name>
 	<description>REST for NatAme Application</description>
 
 	<properties>
 		<java.version>1.8</java.version>
+		<start-class>com.natame.Natame</start-class>
 	</properties>
 
 	<dependencies>

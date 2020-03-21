@@ -8,11 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class NatAmEApplication implements CommandLineRunner{
+public class Natame implements CommandLineRunner{
 	
 	
 	public static void main(String[] args) {
-		SpringApplication.run(NatAmEApplication.class, args);
+		SpringApplication.run(Natame.class, args);
 	}
 
 	@Override

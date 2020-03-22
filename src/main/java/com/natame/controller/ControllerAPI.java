@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.natame.model.Cliente;
 import com.natame.model.ClientePedido;
 import com.natame.model.Pais;
+import com.natame.model.ProductoDetalle;
 import com.natame.model.RepresentanteVentas;
 import com.natame.model.UsuarioPagos;
 import com.natame.service.ServicesDaoImpl;
@@ -42,19 +43,31 @@ public class ControllerAPI {
 	
 	private ObjectMapper objectMapper = new ObjectMapper();
 	
+	/*===============================================================
+	 * NATAME
+	 * 
+	 * TODOS LAS PETICIONES RETORNAN FORMATO JSON
+	 * 
+	 * 
+	 * ===========================================================
+	 */
+	
+	
 	/*
-	 * PAISES
-	 * REALIZADO CON FINES DE PRUEBA
+	 * SE OBTIENEN LOS PAISES REGISTRADOS EN LA BD
 	 */
 	
 	@CrossOrigin
 	@RequestMapping(value = "/pais", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public String obtenerPaises(@RequestHeader(value="Authorization",required=false) String auth) throws JsonProcessingException, RHException{
-
-	return objectMapper.writeValueAsString(this.serviciosDao.verPaises(auth));
-
+		return objectMapper.writeValueAsString(this.serviciosDao.verPaises(auth));
 	}
+	
+	
+	/*
+	 * SE OBTIENE UN PAIS ESPECIFICO DE LA BD
+	 */
 	
 	@CrossOrigin
 	@RequestMapping(value = "/pais/{id}", method = RequestMethod.GET, produces = "application/json")
@@ -62,6 +75,15 @@ public class ControllerAPI {
 	public String obtenerPais(@PathVariable int id, @RequestHeader(value="Authorization",required=false) String auth) throws JsonProcessingException, RHException {
 		return objectMapper.writeValueAsString(serviciosDao.buscarPais(id,auth));
 	}
+	
+	
+	/*
+	 * SE REGISTRA UN NUEVO PAIS EN LA BD
+	 *
+		 {
+		    "nombrepais": "United States of America"
+		 }
+	 */
 	
 	@CrossOrigin
 	@RequestMapping(value = "/pais", method = RequestMethod.POST, produces = "application/json")
@@ -71,6 +93,11 @@ public class ControllerAPI {
 		return "{\"resultado\":\"transacción finalizada con exito\"}";
 	}
 	
+	
+	/*
+	 * SE BORRA UN PAIS ESPECIFICO DE LA BD
+	 */
+	
 	@CrossOrigin
 	@RequestMapping(value = "/pais/{id}", method = RequestMethod.DELETE, produces = "application/json")
 	@ResponseBody
@@ -79,12 +106,6 @@ public class ControllerAPI {
 		return "{\"resultado\":\"transacción finalizada con exito\"}";
 	}
 	
-	/*
-	POST BODY LIKE :
-	{
-	    "nombrepais": "nombredelpais"
-	}
-	*/
 	
 	/*CASO DE USO
 	 * REGISTRAR RERESENTANTE DE VENTAS
@@ -95,6 +116,29 @@ public class ControllerAPI {
 	 */
 	
 	
+	/*
+	 * SE REGISTRA UN NUEVO REPRESENTANTE DE VENTAS PD: LA CONTRASEÑA ES LA IDENTIFICACIÓN DEL USUARIO
+	 * RVMID Y RVMTIPOID REFIEREN AL REPRESENTANTE DE VENTAS MASTER QUE LO REGISTRA
+	 *
+		{
+			"identificacion":2,
+			"tipoid":"CC",
+			"nombre":"testrv1",
+			"correoelectronico":"testrv1@",
+			"genero":"A",
+			"fechanacimiento":"27-02-1997",
+			"fechacontrato":"30-06-2019",
+			"telefonocontacto":"3103018563",
+			"direccion":"cll 40 a",
+			"esdirector":"N",
+			"grado":"MASTER",
+			"region":1,
+			"rvmid":1,
+			"rvmtipoid":"CC",
+			"usuario":"testrv1"
+		}
+	 */
+	
 	@CrossOrigin
 	@RequestMapping(value = "/representante", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
@@ -103,25 +147,9 @@ public class ControllerAPI {
 		return "{\"resultado\":\"transacción finalizada con exito\"}";
 	}
 	
+	
 	/*
-	 * POST BODY LIKE :
-	{
-	"identificacion":2,
-	"tipoid":"CC",
-	"nombre":"testrv1",
-	"correoelectronico":"testrv1@",
-	"genero":"A",
-	"fechanacimiento":"27-02-1997",
-	"fechacontrato":"30-06-2019",
-	"telefonocontacto":"3103018563",
-	"direccion":"cll 40 a",
-	"esdirector":"N",
-	"grado":"MASTER",
-	"region":1,
-	"rvmid":1,
-	"rvmtipoid":"CC",
-	"usuario":"testrv1"
-	}
+	 * OBTENER LISTADO DE REPRESENTANTES DE VENTAS 
 	 */
 	
 	@CrossOrigin
@@ -131,12 +159,34 @@ public class ControllerAPI {
 		return objectMapper.writeValueAsString(serviciosDao.buscarRepresentanteVentas(auth));
 	}
 	
+	
+	/*
+	 * OBTENER LISTADO DE CLIENTES
+	 */
+	
 	@CrossOrigin
 	@RequestMapping(value = "/cliente", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public String buscarCliente( @RequestHeader(value="Authorization",required=false) String auth) throws JsonProcessingException, RHException {
 		return objectMapper.writeValueAsString(serviciosDao.buscarCliente(auth));
 	}
+	
+	
+	/*
+	 * REGISTRAR UN CLIENTE A LA BD
+	 * 
+		{
+		   "identificacion":1,
+		   "tipoid":"CC"
+		   "nombre":"test",
+		   "apellido":"cliente",
+		   "correoelectronico":"test@",
+		   "telefono":"1",
+		   "direccion":"cll 40 a",
+		   "ciudad":"Bogotá",
+		   "username":"testc1"
+		}
+	*/
 	
 	@CrossOrigin
 	@RequestMapping(value = "/cliente", method = RequestMethod.POST, produces = "application/json")
@@ -145,20 +195,7 @@ public class ControllerAPI {
 		serviciosDao.registrarCliente(cliente, auth);
 		return "{\"resultado\":\"transacción finalizada con exito\"}";
 	}
-	/*
-	 POST LIKE
-	{
-    "identificacion":1,
-    "tipoid":"CC"
-    "nombre":"test",
-    "apellido":"cliente",
-    "correoelectronico":"test@",
-    "telefono":"1",
-    "direccion":"cll 40 a",
-    "ciudad":"Bogotá",
-    "username":"testc1"
-	}
-	*/
+
 
 	
 	
@@ -170,12 +207,22 @@ public class ControllerAPI {
 	 * 
 	 */
 	
+	
+	/*
+	 * OBTENER LISTADO DE LAS CATEGORIAS DE PRODUCTOS
+	 */
+	
 	@CrossOrigin
 	@RequestMapping(value = "/categoria", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public String verCategorias(@RequestHeader(value="Authorization",required=false) String auth) throws JsonProcessingException, RHException {
 		return objectMapper.writeValueAsString(this.serviciosDao.obtenerCategorias(auth));
 	}
+	
+	
+	/*
+	 * OBTENER LISTADO DE REGIONES
+	 */
 	
 	@CrossOrigin
 	@RequestMapping(value = "/region", method = RequestMethod.GET, produces = "application/json")
@@ -184,14 +231,34 @@ public class ControllerAPI {
 		return objectMapper.writeValueAsString(this.serviciosDao.verRegiones(auth));
 	}
 	
-	//Muestra todos los productos disponibles 
-	//descripción, precio y cantidad disponible de la regional seleccionada
+
+	/*
+	 * OBTENER EL LISTADO DE LOS PRODUCTOS DISPONIBLES
+	 * DESCRIPCIÓN, PRECIO Y CANTIDAD DISPONIBLE DE LA REGION (PARAMETRO)
+	 */
+	
 	@CrossOrigin
 	@RequestMapping(value = "/productoregion/{region}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public String buscarProductoxRegion(@PathVariable int region, @RequestHeader(value="Authorization",required=false) String auth) throws JsonProcessingException, RHException {
 		return objectMapper.writeValueAsString(this.serviciosDao.buscarProductosxRegion(region, auth));
 	}
+	
+	
+	/*
+	 *  GENERAR UN PEDIDO
+	 *  IDENTIFICACION = ID DEL CLIENTE, INVENTARIO = RELACIÓN PRODUCTO-REGION-CANTIDAD
+	 *  
+		 {
+		 	"identificacion":"",
+		 	"tipoid":"",
+		 	"pd":[{"inventario":int,"cantidad":int},{"inventario":int,"cantidad":int}],
+		 	"estado":"",
+		 	"calificacion":int,
+		 	"fechapedido":"",
+		 	"mododepago":""
+		 }
+	 */
 	
 	@CrossOrigin
 	@RequestMapping(value = "/pedido", method = RequestMethod.POST, produces = "application/json")
@@ -202,6 +269,11 @@ public class ControllerAPI {
 		
 	}
 	
+	
+	/*
+	 * OBTENER EL LISTADO DE REPRESENTANTES DE VENTAS POR CLIENTES
+	 */
+	
 	@CrossOrigin
 	@RequestMapping(value = "/representante/cliente", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
@@ -210,6 +282,9 @@ public class ControllerAPI {
 	}
 	
 	
+	/*
+	 * GENERA LA COMISION POR FECHAS
+	 */
 	
 	@CrossOrigin
 	@RequestMapping(value = "/venta", method = RequestMethod.GET, produces = "application/json")
@@ -218,20 +293,6 @@ public class ControllerAPI {
 		return objectMapper.writeValueAsString(serviciosDao.obtenerComision(vr.getFINICIAL(), vr.getFFINAL(), auth));
 	}
 	
-	/*
-	@CrossOrigin
-	@RequestMapping(value = "/vtotal/{representante}", method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	public String obtenerTotal(@PathVariable int representante, @RequestHeader(value="Authorization",required=false) String auth) {
-		try {
-			return "{\"total\":\""+serviciosDao.obtenerValorTotal(representante, auth)+"\"}";
-		}catch (Exception e) {
-			return "{\"error\":\""+e+"\"}";
-		}
-		
-	}
-	
-	*/
 	
 	
 	/*CASO DE USO
@@ -277,11 +338,6 @@ public class ControllerAPI {
 	 * ===========================================================
 	 */
 	
-	/*
-	 
-	  
-	  
-	 */
 	
 	@CrossOrigin
 	@RequestMapping(value = "/usuariopagos", method = RequestMethod.POST)

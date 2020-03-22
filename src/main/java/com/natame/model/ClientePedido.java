@@ -7,7 +7,6 @@ public class ClientePedido {
 	private int identificacion;
 	private String tipoid;
 	private ProductoDetalle[] PD;
-	
 	private String ESTADO;
 	private int CALIFICACION;
 	private String FECHAPEDIDO;

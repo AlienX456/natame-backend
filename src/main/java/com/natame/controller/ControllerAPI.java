@@ -267,14 +267,10 @@ public class ControllerAPI {
 		return "{\"resultado\":\"transacción finalizada con exito\"}";
 	}
 	
-	/*
-	 * OBTENER LA LISTA DE PEDIDOS ASOCIADOS A UN CLIENTE
-	 * 
-	 */
-	
 	
 	/*
 	 * OBTENER EL LISTADO DE REPRESENTANTES DE VENTAS POR CLIENTES
+	 * 
 	 */
 	
 	@CrossOrigin
@@ -284,11 +280,19 @@ public class ControllerAPI {
 		return objectMapper.writeValueAsString(serviciosDao.obtenerPedidos(auth));
 	}
 	
+	
+	/*
+	 * CALFICAR PEDIDO
+	 * 
+	 * pedid -> id del pedido, calificacion -> calificacion del pedido
+	 */
+	
 	@CrossOrigin
-	@RequestMapping(value = "/representante/cliente", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/pedido/{pedid}/{calificacion}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public String listarClientesXRV(@RequestHeader(value="Authorization",required=false) String auth) throws JsonProcessingException, RHException {
-		return objectMapper.writeValueAsString(serviciosDao.listarClientexRV(auth));
+	public String calificarPedido(@PathVariable int pedid, @PathVariable int calificacion,@RequestHeader(value="Authorization",required=false) String auth) throws JsonProcessingException, RHException {
+		serviciosDao.calificarPedido(pedid, calificacion, auth);
+		return "{\"resultado\":\"transacción finalizada con exito\"}";
 	}
 	
 	

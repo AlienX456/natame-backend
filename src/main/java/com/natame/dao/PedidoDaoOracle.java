@@ -29,7 +29,7 @@ public class PedidoDaoOracle implements IPedidoDao{
 	        }
 	        prepStmt.close();
 			}catch (Exception e) {
-	    	   throw new RHException( this.getClass().getName(), "Error en verPedidoes() "+ e.getMessage());
+	    	   throw new RHException( this.getClass().getName(), "Error en obtenerListaPedidos() "+ e.getMessage());
 			}finally {
 			  ServiceLocator.getInstance().liberarConexion(); 
 	       }
@@ -38,8 +38,29 @@ public class PedidoDaoOracle implements IPedidoDao{
 
 
 	@Override
-	public void calificarPedido(int calificacion, Usuario user) throws RHException {
-		// TODO Auto-generated method stub
+	public void calificarPedido(int calificacion, int pedido, Usuario user) throws RHException {
+		try {
+	        String strSQL = "UPDATE PEDIDO set K_CALIFICACION=? WHERE K_PEDIDO=?";
+	        Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
+	        PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
+	        prepStmt.setInt(1, calificacion); 
+	        prepStmt.setInt(2, pedido);  
+	        prepStmt.executeUpdate();
+	        prepStmt.close();
+	        ServiceLocator.getInstance().commit();
+	      }catch (Exception e) {
+	    	  try {
+	          	if (ServiceLocator.getInstance().getConexion()!=null) {
+	                  System.err.print("se enviara petición de Rollback");
+	                  ServiceLocator.getInstance().rollback();
+	          	}
+	          } catch(Exception excep) {
+	          	throw new RHException( this.getClass().getName(), " Error en calificarPedido() ROLLBACK "+ excep.getMessage());
+	          }
+	    	  throw new RHException( this.getClass().getName(), " Error en calificarPedido() "+ e.getMessage());
+		} finally {
+	         ServiceLocator.getInstance().liberarConexion();
+	    }
 		
 	}
 		

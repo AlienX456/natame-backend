@@ -271,6 +271,11 @@ public class ServicesDaoImpl {
     	return this.ip.obtenerListaPedidos(usuario);
     }
     
+    public void calificarPedido(int pedido, int calificacion, String auth) throws RHException{
+    	Usuario usuario = bauth.getUserPassword(auth);
+    	this.ip.calificarPedido(calificacion, pedido, usuario);
+    }
+    
     /*
      * PAGOS
      * 

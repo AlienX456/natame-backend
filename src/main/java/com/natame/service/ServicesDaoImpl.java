@@ -24,12 +24,15 @@ import com.natame.dao.ProductoRegionDaoOracle;
 import com.natame.dao.RegionDaoOracle;
 import com.natame.dao.RepresentanteVentasDaoOracle;
 import com.natame.dao.SeguridadDaoOracle;
+import com.natame.dao.IPedidoDao;
+import com.natame.dao.PedidoDaoOracle;
 import com.natame.dao.UsuarioDaoOracle;
 import com.natame.model.Cliente;
 import com.natame.model.ClientePedido;
 import com.natame.model.NatameRolePrivs;
 import com.natame.model.NatameUsrRole;
 import com.natame.model.Pais;
+import com.natame.model.Pedido;
 import com.natame.model.ProductoRegion;
 import com.natame.model.Region;
 import com.natame.model.RepresentanteVentas;
@@ -53,6 +56,7 @@ public class ServicesDaoImpl {
 	private ISeguridadDao is;
 	private ICategoriaDao ict;
 	private IUsuarioDao iud;
+	private IPedidoDao ip;
 	
 	private BasicAuthConfig bauth;
 	
@@ -68,6 +72,7 @@ public class ServicesDaoImpl {
 		this.is = new SeguridadDaoOracle();
 		this.ict = new CategoriaDaoOracle();
 		this.iud = new UsuarioDaoOracle();
+		this.ip = new PedidoDaoOracle();
 		
 	}
 	
@@ -251,6 +256,19 @@ public class ServicesDaoImpl {
     public Subcategoria[] obtenerCategorias(String auth) throws RHException{
     	Usuario usuario = bauth.getUserPassword(auth);
     	return ict.obtenerCategorias(usuario);
+    }
+    
+    /*
+     * PEDIDOS
+     * 
+     * 
+     * 
+     * 
+     */
+    
+    public Pedido[] obtenerPedidos(String auth) throws RHException{
+    	Usuario usuario = bauth.getUserPassword(auth);
+    	return this.ip.obtenerListaPedidos(usuario);
     }
     
     /*

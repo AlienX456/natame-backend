@@ -23,7 +23,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.natame.model.Cliente;
 import com.natame.model.ClientePedido;
 import com.natame.model.Pais;
-import com.natame.model.ProductoDetalle;
 import com.natame.model.RepresentanteVentas;
 import com.natame.model.UsuarioPagos;
 import com.natame.service.ServicesDaoImpl;
@@ -177,7 +176,7 @@ public class ControllerAPI {
 	 * 
 		{
 		   "identificacion":1,
-		   "tipoid":"CC"
+		   "tipoid":"CC",
 		   "nombre":"test",
 		   "apellido":"cliente",
 		   "correoelectronico":"test@",
@@ -250,7 +249,7 @@ public class ControllerAPI {
 	 *  IDENTIFICACION = ID DEL CLIENTE, INVENTARIO = RELACIÓN PRODUCTO-REGION-CANTIDAD
 	 *  
 		 {
-		 	"identificacion":"",
+		 	"identificacion":,
 		 	"tipoid":"",
 		 	"pd":[{"inventario":int,"cantidad":int},{"inventario":int,"cantidad":int}],
 		 	"estado":"",
@@ -266,13 +265,24 @@ public class ControllerAPI {
 	public String registrarPedido(@RequestBody ClientePedido cp, @RequestHeader(value="Authorization",required=false) String auth) throws RHException {
 		serviciosDao.realizarPedido(cp, auth);
 		return "{\"resultado\":\"transacción finalizada con exito\"}";
-		
 	}
+	
+	/*
+	 * OBTENER LA LISTA DE PEDIDOS ASOCIADOS A UN CLIENTE
+	 * 
+	 */
 	
 	
 	/*
 	 * OBTENER EL LISTADO DE REPRESENTANTES DE VENTAS POR CLIENTES
 	 */
+	
+	@CrossOrigin
+	@RequestMapping(value = "/pedido", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public String obtenerPedidos(@RequestHeader(value="Authorization",required=false) String auth) throws JsonProcessingException, RHException {
+		return objectMapper.writeValueAsString(serviciosDao.obtenerPedidos(auth));
+	}
 	
 	@CrossOrigin
 	@RequestMapping(value = "/representante/cliente", method = RequestMethod.GET, produces = "application/json")

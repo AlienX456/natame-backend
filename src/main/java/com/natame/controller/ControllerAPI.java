@@ -383,11 +383,23 @@ public class ControllerAPI {
 	 */
 	
 	
+	/*
+	 * REGISTRAR USUARIO NUEVO
+	 *  
+	 {
+		"numidentificacion":,
+		"nombre":"",
+		"clave":"",
+		"tipoidentificacion":""
+	 }
+	 */
+	
 	@CrossOrigin
 	@RequestMapping(value = "/usuariopagos", method = RequestMethod.POST)
 	@ResponseBody
-	public void registrarUsuarioPagos(@RequestBody UsuarioPagos up, @RequestHeader(value="Authorization",required=false) String auth) throws RHException{
+	public String registrarUsuarioPagos(@RequestBody UsuarioPagos up, @RequestHeader(value="Authorization",required=false) String auth) throws RHException{
 		this.serviciosDao.registrarUsuarioPagos(auth, up);
+		return "{\"resultado\":\"transacción finalizada con exito\"}";
 	}
 
 	

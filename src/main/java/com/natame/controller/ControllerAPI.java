@@ -288,7 +288,7 @@ public class ControllerAPI {
 	 */
 	
 	@CrossOrigin
-	@RequestMapping(value = "/pedido/{pedid}/{calificacion}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/pedido/{pedid}/{calificacion}", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public String calificarPedido(@PathVariable int pedid, @PathVariable int calificacion,@RequestHeader(value="Authorization",required=false) String auth) throws JsonProcessingException, RHException {
 		serviciosDao.calificarPedido(pedid, calificacion, auth);
@@ -343,6 +343,36 @@ public class ControllerAPI {
 	   return date;	
 	}
 	
+	/*==
+	 * Procedimientos, triggers y demás
+	 * 
+	 * 
+	 * 
+	 * ==
+	 */
+	
+	/*
+	 * Retorna el IVA, se envia  el parametro 
+	 * PD: espacios con -
+	 */
+	
+	
+	@CrossOrigin
+	@RequestMapping(value = "/funciones/calcularIVA/{nombrePro}", method = RequestMethod.GET)
+	@ResponseBody
+	public String calcularIVA(@PathVariable String nombrePro, @RequestHeader(value="Authorization",required=false) String auth) throws RHException {
+		nombrePro = nombrePro.replace("-", " ");
+		Float res = serviciosDao.obtenerIvaProducto(nombrePro, auth);
+		return "{\"resultado\":\""+res+"\"}";
+	}
+	
+	
+	@CrossOrigin
+	@RequestMapping(value = "/funciones/factura/{idpedido}", method = RequestMethod.GET)
+	@ResponseBody
+	public String generarFactura(@PathVariable int idpedido, @RequestHeader(value="Authorization",required=false) String auth) throws RHException, JsonProcessingException {
+		return objectMapper.writeValueAsString(this.serviciosDao.generarFactura(idpedido, auth));
+	}
 	/*===============================================================
 	 * PAGOS
 	 * 

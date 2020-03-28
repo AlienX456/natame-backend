@@ -19,7 +19,7 @@ public class PedidoDaoOracle implements IPedidoDao{
 			String strSQL = "SELECT * FROM PEDIDO WHERE K_ASOCIACION IN " + 
 							"(SELECT K_SECUENCIA FROM ASOCIACION WHERE (K_TIPOIDCLIENTE, K_IDCLIENTE) " + 
 							"IN (SELECT K_TIPOIDCLIENTE, K_IDCLIENTE FROM CLIENTE " + 
-							"WHERE C_USUARIO='testnomcliente2'))";
+							"WHERE C_USUARIO='"+user.getNombre()+"'))";
 			Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 			PreparedStatement prepStmt = conexion.prepareStatement(strSQL);
 	        ResultSet rs = prepStmt.executeQuery();

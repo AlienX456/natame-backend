@@ -9,10 +9,12 @@ import com.natame.dao.CategoriaDaoOracle;
 import com.natame.dao.ClienteDaoOracle;
 import com.natame.dao.ClientePedidoDaoOracle;
 import com.natame.dao.ComisionDaoOracle;
+import com.natame.dao.FuncionesNatameOracle;
 import com.natame.dao.ICategoriaDao;
 import com.natame.dao.IClienteDao;
 import com.natame.dao.IClientePedidoDao;
 import com.natame.dao.IComisionDao;
+import com.natame.dao.IFuncionesNatame;
 import com.natame.dao.IPaisDao;
 import com.natame.dao.IProductoRegionDao;
 import com.natame.dao.IRegionDao;
@@ -29,6 +31,7 @@ import com.natame.dao.PedidoDaoOracle;
 import com.natame.dao.UsuarioDaoOracle;
 import com.natame.model.Cliente;
 import com.natame.model.ClientePedido;
+import com.natame.model.Factura;
 import com.natame.model.NatameRolePrivs;
 import com.natame.model.NatameUsrRole;
 import com.natame.model.Pais;
@@ -57,6 +60,7 @@ public class ServicesDaoImpl {
 	private ICategoriaDao ict;
 	private IUsuarioDao iud;
 	private IPedidoDao ip;
+	private IFuncionesNatame ifn;
 	
 	private BasicAuthConfig bauth;
 	
@@ -73,7 +77,7 @@ public class ServicesDaoImpl {
 		this.ict = new CategoriaDaoOracle();
 		this.iud = new UsuarioDaoOracle();
 		this.ip = new PedidoDaoOracle();
-		
+		this.ifn = new FuncionesNatameOracle();
 	}
 	
 	
@@ -274,6 +278,23 @@ public class ServicesDaoImpl {
     public void calificarPedido(int pedido, int calificacion, String auth) throws RHException{
     	Usuario usuario = bauth.getUserPassword(auth);
     	this.ip.calificarPedido(calificacion, pedido, usuario);
+    }
+    
+    /*
+     * FUNCIONES ALMACENADAS
+     * 
+     * 
+     * 
+     */
+    
+    public Float obtenerIvaProducto(String nombre, String auth) throws RHException{
+    	Usuario usuario = bauth.getUserPassword(auth);
+    	return this.ifn.calcularIVAProductoFU(nombre, usuario);
+    }
+    
+    public String[] generarFactura(int id_pedido, String auth) throws RHException{
+    	Usuario usuario = bauth.getUserPassword(auth);
+    	return this.ifn.generarFacturaFU(id_pedido, usuario).replace("\t", "   ").split("\n");
     }
     
     /*

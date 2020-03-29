@@ -373,6 +373,8 @@ public class ControllerAPI {
 	public String generarFactura(@PathVariable int idpedido, @RequestHeader(value="Authorization",required=false) String auth) throws RHException, JsonProcessingException {
 		return objectMapper.writeValueAsString(this.serviciosDao.generarFactura(idpedido, auth));
 	}
+	
+	
 	/*===============================================================
 	 * PAGOS
 	 * 

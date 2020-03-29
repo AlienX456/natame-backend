@@ -14,19 +14,22 @@ public class RegistrarPagoOracle implements IRegistrarPago{
 			String llamado = "{ ? = call PK_FACTURA.FU_PAGAR_EN_LINEA( ?, ?, ?) }";
 			Connection conexion = ServiceLocator.getInstance().tomarConexion(user);
 			CallableStatement callStmt = conexion.prepareCall(llamado);
-			callStmt.registerOutParameter(1, Types.VARCHAR);
+			callStmt.registerOutParameter(1,Types.VARCHAR);
 			callStmt.setInt(2, id_pedido);
 			callStmt.registerOutParameter(3,Types.NUMERIC);
 			callStmt.registerOutParameter(4,Types.VARCHAR);
 	        callStmt.executeUpdate();
+	        
 	        String result = callStmt.getString(4);
 	        callStmt.close();
 	        ServiceLocator.getInstance().commit();
 	        return result;
 			} catch (Exception e) {
 	      	  try {
-	                System.err.print("se enviara petición de Rollback");
-	                ServiceLocator.getInstance().rollback();
+		      		if (ServiceLocator.getInstance().getConexion()!=null) {
+		                System.err.print("se enviara petición de Rollback");
+		                ServiceLocator.getInstance().rollback();
+		      		}
 		        } catch(Exception excep) {
 		        	throw new RHException( this.getClass().getName(), " Error en  registrarPago() ROLLBACK "+ excep.getMessage());
 		        }

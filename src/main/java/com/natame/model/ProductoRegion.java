@@ -12,14 +12,25 @@ public class ProductoRegion {
 	
 	private int PRECIO;
 	
+	private String NOMBREIMAGEN;
+	
 	
 
-	public ProductoRegion(int iDPRODUCTOREGION, int iDPRODUCTO, String nOMBREPRODUCTO, int cANTIDAD, int pRECIO) {
+	public ProductoRegion(int iDPRODUCTOREGION, int iDPRODUCTO, String nOMBREPRODUCTO, int cANTIDAD, int pRECIO, String nOMBREIMAGEN) {
 		setINVENTARIO(iDPRODUCTOREGION);
 		setPRODUCTO(iDPRODUCTO);
 		NOMBREPRODUCTO = nOMBREPRODUCTO;
 		CANTIDAD = cANTIDAD;
 		PRECIO = pRECIO;
+		NOMBREIMAGEN = nOMBREIMAGEN;
+	}
+
+	public String getNOMBREIMAGEN() {
+		return NOMBREIMAGEN;
+	}
+
+	public void setNOMBREIMAGEN(String nOMBREIMAGEN) {
+		NOMBREIMAGEN = nOMBREIMAGEN;
 	}
 
 	public int getCANTIDAD() {

@@ -401,6 +401,14 @@ public class ControllerAPI {
 		this.serviciosDao.registrarUsuarioPagos(auth, up);
 		return "{\"resultado\":\"transacción finalizada con exito\"}";
 	}
+	
+	
+	@CrossOrigin
+	@RequestMapping(value = "/pagos/{idpedido}", method = RequestMethod.POST)
+	@ResponseBody
+	public String registrarPago(@PathVariable int idpedido, @RequestHeader(value="Authorization",required=false) String auth) throws RHException{
+		return "{\"resultado\":\""+this.serviciosDao.registrarPago(auth, idpedido)+"\"}";
+	}
 
 	
 	

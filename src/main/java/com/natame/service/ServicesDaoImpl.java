@@ -21,9 +21,11 @@ import com.natame.dao.IRegionDao;
 import com.natame.dao.IRepresentanteVentasDao;
 import com.natame.dao.ISeguridadDao;
 import com.natame.dao.IUsuarioDao;
+import com.natame.dao.IRegistrarPago;
 import com.natame.dao.PaisDaoOracle;
 import com.natame.dao.ProductoRegionDaoOracle;
 import com.natame.dao.RegionDaoOracle;
+import com.natame.dao.RegistrarPagoOracle;
 import com.natame.dao.RepresentanteVentasDaoOracle;
 import com.natame.dao.SeguridadDaoOracle;
 import com.natame.dao.IPedidoDao;
@@ -31,7 +33,6 @@ import com.natame.dao.PedidoDaoOracle;
 import com.natame.dao.UsuarioDaoOracle;
 import com.natame.model.Cliente;
 import com.natame.model.ClientePedido;
-import com.natame.model.Factura;
 import com.natame.model.NatameRolePrivs;
 import com.natame.model.NatameUsrRole;
 import com.natame.model.Pais;
@@ -61,7 +62,7 @@ public class ServicesDaoImpl {
 	private IUsuarioDao iud;
 	private IPedidoDao ip;
 	private IFuncionesNatame ifn;
-	
+	private IRegistrarPago irpp;
 	private BasicAuthConfig bauth;
 	
 	public ServicesDaoImpl(){
@@ -78,6 +79,7 @@ public class ServicesDaoImpl {
 		this.iud = new UsuarioDaoOracle();
 		this.ip = new PedidoDaoOracle();
 		this.ifn = new FuncionesNatameOracle();
+		this.irpp = new RegistrarPagoOracle();
 	}
 	
 	
@@ -309,5 +311,10 @@ public class ServicesDaoImpl {
     public void registrarUsuarioPagos(String auth, UsuarioPagos userp) throws RHException{
     	Usuario usuario = bauth.getUserPassword(auth);
     	this.iud.registrarUsuario(usuario, userp);
+    }
+    
+    public String registrarPago(String auth, int id_pedido) throws RHException{
+    	Usuario usuario = bauth.getUserPassword(auth);
+    	return this.irpp.registrarPago(id_pedido, usuario);
     }
 }

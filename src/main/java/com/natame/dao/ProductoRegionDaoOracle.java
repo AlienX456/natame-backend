@@ -23,7 +23,7 @@ public class ProductoRegionDaoOracle implements IProductoRegionDao {
 	        ResultSet rs = prepStmt.executeQuery();
 	        while(rs.next()) {
 	        	lista.add(new ProductoRegion(rs.getInt("K_INVENTARIO"),rs.getInt("K_PRODUCTO")
-	        			, rs.getString("V_NOMBRE"), rs.getInt("N_CANTIDAD"), rs.getInt("T_PRECIO")));
+	        			, rs.getString("C_NOMBRE"), rs.getInt("N_CANTIDAD"), rs.getInt("T_PRECIO")));
 	        }
 	        prepStmt.close();
 	        return lista.toArray(new ProductoRegion[lista.size()]);

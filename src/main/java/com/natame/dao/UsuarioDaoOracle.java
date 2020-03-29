@@ -37,6 +37,12 @@ public class UsuarioDaoOracle implements IUsuarioDao{
 			prepStmt.executeUpdate();
 			prepStmt.close();
 			
+	      /*String strSQL3 = "GRANT CONNECT TO "+userp.getNOMBRE();
+	      prepStmt = conexion.prepareStatement(strSQL3);
+	      prepStmt.executeUpdate();
+	      prepStmt.close();*/
+
+			
 			ServiceLocator2.getInstance().commit();
 			
 		}

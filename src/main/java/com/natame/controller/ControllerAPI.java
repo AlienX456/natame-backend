@@ -404,6 +404,11 @@ public class ControllerAPI {
 		return "{\"resultado\":\"transacción finalizada con exito\"}";
 	}
 	
+	/*
+	 * PAGAR PEDIDO
+	 * parametros = id del pedido que se va a cancelar  
+	 * 
+	 */
 	
 	@CrossOrigin
 	@RequestMapping(value = "/pagos/{idpedido}", method = RequestMethod.POST)

@@ -124,6 +124,7 @@ public class RepresentanteVentasDaoOracle implements IRepresentanteVentasDao{
 	        resultado.setRVMTIPOID(rs.getString("K_RVMTIPOID"));
 	        resultado.setRVMID(rs.getInt("K_RVMID"));
 	        resultado.setUSUARIO(rs.getString("C_USUARIO"));
+	        resultado.setTIPOID(rs.getString("K_TIPOID"));
 	        prepStmt.close();
 	        return resultado;
 			}catch (Exception e) {

@@ -33,7 +33,8 @@ public class ClientePedidoDaoOracle implements IClientePedidoDao{
 	          		+ "TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'),"
 	          		+ "?,"
 	          		+ "NULL,"
-	          		+ "?)";
+	          		+ "?,"
+	          		+ "NULL)";
 	          
 	          prepStmt = conexion.prepareStatement(strSQL2);
 	          prepStmt.setString(1, cp.getESTADO()); 

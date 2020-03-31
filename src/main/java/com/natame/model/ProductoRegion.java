@@ -14,15 +14,26 @@ public class ProductoRegion {
 	
 	private String NOMBREIMAGEN;
 	
+	private float IMPUESTO;
+	
 	
 
-	public ProductoRegion(int iDPRODUCTOREGION, int iDPRODUCTO, String nOMBREPRODUCTO, int cANTIDAD, int pRECIO, String nOMBREIMAGEN) {
+	public ProductoRegion(int iDPRODUCTOREGION, int iDPRODUCTO, String nOMBREPRODUCTO, int cANTIDAD, int pRECIO, String nOMBREIMAGEN, float iMPUESTO) {
 		setINVENTARIO(iDPRODUCTOREGION);
 		setPRODUCTO(iDPRODUCTO);
 		NOMBREPRODUCTO = nOMBREPRODUCTO;
 		CANTIDAD = cANTIDAD;
 		PRECIO = pRECIO;
 		NOMBREIMAGEN = nOMBREIMAGEN;
+		IMPUESTO = iMPUESTO;
+	}
+
+	public float getIMPUESTO() {
+		return IMPUESTO;
+	}
+
+	public void setIMPUESTO(float iMPUESTO) {
+		IMPUESTO = iMPUESTO;
 	}
 
 	public String getNOMBREIMAGEN() {

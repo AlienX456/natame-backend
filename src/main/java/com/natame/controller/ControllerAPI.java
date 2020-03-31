@@ -170,6 +170,12 @@ public class ControllerAPI {
 		return objectMapper.writeValueAsString(serviciosDao.buscarCliente(auth));
 	}
 	
+	@CrossOrigin
+	@RequestMapping(value = "/clienterv", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public String buscarClienteRV( @RequestHeader(value="Authorization",required=false) String auth) throws JsonProcessingException, RHException {
+		return objectMapper.writeValueAsString(serviciosDao.listarClientexRV(auth));
+	}
 	
 	/*
 	 * REGISTRAR UN CLIENTE A LA BD

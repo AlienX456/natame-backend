@@ -206,6 +206,7 @@ public class ServicesDaoImpl {
     
     public void realizarPedido(ClientePedido cp, String auth) throws RHException {
     	Usuario usuario = bauth.getUserPassword(auth);
+    	cp.setESTADO("GENERADO");
     	icp.realizarPedido(cp, usuario);
     }
     

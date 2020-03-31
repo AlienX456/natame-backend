@@ -252,7 +252,6 @@ public class ControllerAPI {
 		 	"identificacion":,
 		 	"tipoid":"",
 		 	"pd":[{"inventario":int,"cantidad":int},{"inventario":int,"cantidad":int}],
-		 	"estado":"",
 		 	"calificacion":int,
 		 	"fechapedido":"",
 		 	"mododepago":""
